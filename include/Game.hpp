@@ -3,12 +3,17 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Map.hpp"
+#include "Ini.hpp"
 #include "tools.hpp"
 
 class Game {
     sf::Event event;
-    Map map;
+
+    sf::Texture backgroundT;
+    sf::Sprite background;
+
+    Ini config;
+    void load(uint number, const sf::RenderWindow &window);
 public:
     Game(sf::RenderWindow &window);
     ~Game();
