@@ -1,13 +1,13 @@
 #include "Button.hpp"
 
-Button::Button(int x, int y, int width, int height, std::string str, std::function<void(void)> fun) {
+Button::Button(int x, int y, int width, int height, std::string str, std::function<void(void)> function) {
     rect.setPosition(x, y);
     rect.setSize(sf::Vector2f(width, height));
     rect.setFillColor(defaultColor);
     rect.setOutlineColor(sf::Color::Black);
     rect.setOutlineThickness(3);
 
-    this->fun = fun;
+    this->function = function;
 
     if(!font.loadFromMemory(DejaVuSans_ttf, DejaVuSans_ttf_len))
         exit(-1);
@@ -34,7 +34,7 @@ void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     if(isCovering()) {
         rect.setFillColor(activateColor);
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
-            fun();
+            function();
     }
     else {
         rect.setFillColor(defaultColor);

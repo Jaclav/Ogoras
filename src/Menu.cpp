@@ -16,7 +16,7 @@ Menu::Menu(sf::RenderWindow &window) {
         exit(-1);
     background.setTexture(backgroundT);
     background.setScale(window.getSize().x / background.getLocalBounds().width,
-                             window.getSize().y / background.getLocalBounds().height);
+                        window.getSize().y / background.getLocalBounds().height);
 }
 
 Menu::~Menu() {
@@ -24,9 +24,7 @@ Menu::~Menu() {
 }
 
 void Menu::start(sf::RenderWindow &window) {
-    Button backButton((window.getSize().x - 500) / 2, window.getSize().y / 1.2, 500, 100, "Back", [&]() {
-        setDefault(window);//doesn't work!!!
-    });
+    Button backButton((window.getSize().x - 500) / 2, window.getSize().y / 1.2, 500, 100, "Back", [&]() {});
     Button playButton(window.getSize().x / 8, window.getSize().y / 3, 500, 100, "Play", [&]() {
         shouldPlay = true;
     });
