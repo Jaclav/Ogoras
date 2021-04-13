@@ -3,9 +3,13 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Ini.hpp"
+
 class Map : public sf::Drawable {
     sf::Texture backgroundT;
     sf::Sprite background;
+
+    Ini config;
 public:
     Map();
     ~Map();
