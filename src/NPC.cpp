@@ -1,16 +1,19 @@
 #include "NPC.hpp"
 
-NPC::NPC() {
-
-}
-
 NPC::NPC(std::string name, uint posX, uint posY) {
     this->name = name;
     sprite.setPosition(posX, posY);
+
+    description.setFont(font);
+    description.setString(name);
+    description.setCharacterSize(16);
+    description.setOutlineThickness(2);
 }
 
 void NPC::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(sprite, states);
+    description.setPosition(sprite.getPosition().x + description.getLocalBounds().width, sprite.getPosition().y - description.getLocalBounds().height);
+    target.draw(description, states);
 }
 
 void NPC::loadTexture(Side side) {
