@@ -12,7 +12,7 @@ private:
     sf::Texture texture;
     sf::Sprite sprite;
 public:
-    void draw(sf::RenderTarget &target, sf::RenderStates states);
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void loadTexture(std::string path);
     void touch();
 

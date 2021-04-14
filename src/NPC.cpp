@@ -1,10 +1,11 @@
 #include "NPC.hpp"
 
-void NPC::draw(sf::RenderTarget &target, sf::RenderStates states) {
+void NPC::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(sprite, states);
 }
 
 void NPC::loadTexture(std::string path) {
+    path += ".png";
     if(!texture.loadFromFile(path))
         exit(0);
     sprite.setTexture(texture);
