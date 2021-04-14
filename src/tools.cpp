@@ -10,6 +10,7 @@ void defaultEvents(sf::RenderWindow &window, sf::Event event) {
 #pragma GCC diagnostic ignored "-Wunused-result"
 
 #ifdef _WIN32
+        static HWND windowHandle = window.getSystemHandle();
         if(!printScreen.copyToImage().saveToFile(std::string(getenv("Temp")) + "\\ogor_screenshot.png")) {
             ShowWindow(windowHandle, SW_MINIMIZE);
             MessageBox(NULL, "Failed to take a screenshot", "Warning", MB_DEFAULT_DESKTOP_ONLY | MB_ICONWARNING | MB_TOPMOST);
