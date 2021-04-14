@@ -2,7 +2,7 @@
 
 Game::Game(sf::RenderWindow &window) {
     sf::Drawable *toDraw[] = {&background};
-    load(0, window);
+    load(1, window);
 
     while(window.isOpen()) {
         while(window.pollEvent(event)) {
