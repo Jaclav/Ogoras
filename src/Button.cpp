@@ -9,8 +9,6 @@ Button::Button(int x, int y, int width, int height, std::string str, std::functi
 
     this->function = function;
 
-    if(!font.loadFromMemory(DejaVuSans_ttf, DejaVuSans_ttf_len))
-        exit(-1);
     text.setFont(font);
     text.setString(str);
 

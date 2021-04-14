@@ -1,8 +1,6 @@
 #include "Menu.hpp"
 
 Menu::Menu(sf::RenderWindow &window) {
-    if(!font.loadFromMemory(DejaVuSans_ttf, DejaVuSans_ttf_len))
-        exit(0);
     mainText.setFont(font);
     mainText.setOutlineThickness(3);
     mainText.setCharacterSize(window.getSize().x / 24);

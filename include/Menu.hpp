@@ -10,6 +10,8 @@
 #include "../resources/backgrounds/startBackground.png.hpp"
 #include "../resources/DejaVuSans.ttf.hpp"
 
+extern sf::Font font;
+
 class Menu {
     enum Returned {Back, Play};
     Returned play(sf::RenderWindow &window);
@@ -19,7 +21,6 @@ class Menu {
     sf::Texture backgroundT;
     sf::Sprite background;
 
-    sf::Font font;
     sf::Text mainText;
     sf::Text subText;
     const std::wstring mainTextStr = L"Ogóras";

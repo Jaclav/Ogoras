@@ -10,12 +10,13 @@
 
 #include "../resources/DejaVuSans.ttf.hpp"
 
+extern sf::Font font;
+
 class Button : public sf::Drawable {
     mutable sf::RectangleShape rect;
 
     std::function<void( void )> function;
 
-    sf::Font font;
     sf::Text text;
     const sf::Color defaultColor{128, 128, 129, 220};
     const sf::Color activateColor{0, 0, 255, 122};
