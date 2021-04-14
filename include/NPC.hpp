@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Entity.hpp"
+#include "tools.hpp"
 
 extern sf::Font font;
 

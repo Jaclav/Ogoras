@@ -4,7 +4,7 @@
 #include <cmath>
 #ifdef _WIN32
 #include <windows.h>
-typedef uint unsigned int;
+typedef unsigned int uint;
 #endif //_WIN32
 
 #include <SFML/Graphics.hpp>
