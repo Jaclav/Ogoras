@@ -40,9 +40,9 @@ void Game::load(uint number, const sf::RenderWindow &window) {
         name = config.readString("NPC" + std::to_string(i), "name", "NULL");
         if(name == "NULL")
             break;
-        npc.push_back(NPC());
-        npc[i].setPosition(config.readInt("NPC" + std::to_string(i), "x", 0),
-                           config.readInt("NPC" + std::to_string(i), "y", 0));
-        npc[i].loadTexture("data/characters/" + name);
+        npc.push_back(NPC(name,
+                          config.readInt("NPC" + std::to_string(i), "x", 0),
+                          config.readInt("NPC" + std::to_string(i), "y", 0)));
+        npc[i].loadTexture((NPC::Side)config.readInt("NPC" + std::to_string(i), "s", NPC::Side::Down));
     }
 }
