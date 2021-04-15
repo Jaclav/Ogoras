@@ -12,7 +12,7 @@ NPC::NPC(std::string name, uint posX, uint posY) {
 
 void NPC::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(sprite, states);
-    description.setPosition(sprite.getPosition().x + description.getLocalBounds().width, sprite.getPosition().y - description.getLocalBounds().height);
+    description.setPosition(sprite.getPosition().x + (sprite.getLocalBounds().width - description.getLocalBounds().width) / 2, sprite.getPosition().y - description.getLocalBounds().height);
     target.draw(description, states);
 }
 
