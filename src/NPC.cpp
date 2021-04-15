@@ -37,7 +37,8 @@ void NPC::loadTexture(Side side) {
     }
     }
     if(!texture.loadFromFile("data/characters/" + name + ".png", ir))
-        exit(0);
+        if(!texture.loadFromMemory(notFound_png, notFound_png_len))
+            exit(0);
     sprite.setTexture(texture);
 }
 

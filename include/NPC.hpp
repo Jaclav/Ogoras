@@ -6,6 +6,8 @@
 #include "Entity.hpp"
 #include "tools.hpp"
 
+#include "../resources/notFound.png.hpp"
+
 extern sf::Font font;
 
 class NPC : public Entity {
