@@ -14,7 +14,6 @@ extern sf::Font font;
 
 class NPC : public Entity {
 public:
-    enum Side {Up = 'U', Down = 'D', Right = 'R', Left = 'L'};
     NPC(const NPC &other);
     NPC(std::string name, uint posX, uint posY, Side side);
 

@@ -1,9 +1,7 @@
 #include "NPC.hpp"
-#include <iostream>
 
 NPC::NPC(const NPC &other) : name(other.name), sprite(other.sprite), side(other.side), description(other.description) {
     loadTexture(side);
-    std::cout << name << '\n';
 }
 
 NPC::NPC(std::string name, uint posX, uint posY, Side side) {
