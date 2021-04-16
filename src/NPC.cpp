@@ -3,11 +3,13 @@
 
 NPC::NPC(const NPC &other) : name(other.name), sprite(other.sprite), side(other.side), description(other.description) {
     loadTexture(side);
+    std::cout << name << '\n';
 }
 
-NPC::NPC(std::string name, uint posX, uint posY) {
+NPC::NPC(std::string name, uint posX, uint posY, Side side) {
     this->name = name;
     sprite.setPosition(posX, posY);
+    this->side = side;
 
     description.setFont(font);
     description.setString(name);
@@ -42,9 +44,12 @@ void NPC::loadTexture(Side side = Side::Down) {
         break;
     }
     }
-    if(!texture.loadFromFile("data/characters/" + name + ".png", ir))
-        if(!texture.loadFromMemory(notFound_png, notFound_png_len))
-            exit(0);
+    std::fstream file("data/characters/" + name + ".png", std::ios::in);
+    if(file.good())
+        texture.loadFromFile("data/characters/" + name + ".png", ir);
+    else
+        texture.loadFromMemory(notFound_png, notFound_png_len);
+    file.close();
     sprite.setTexture(texture);
 }
 

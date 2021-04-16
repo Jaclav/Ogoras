@@ -1,6 +1,8 @@
 #ifndef NPC_HPP
 #define NPC_HPP
 
+#include <fstream>
+
 #include <SFML/Graphics.hpp>
 
 #include "Entity.hpp"
@@ -14,17 +16,17 @@ class NPC : public Entity {
 public:
     enum Side {Up = 'U', Down = 'D', Right = 'R', Left = 'L'};
     NPC(const NPC &other);
-    NPC(std::string name, uint posX, uint posY);
+    NPC(std::string name, uint posX, uint posY, Side side);
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void loadTexture(Side side);
     void touch();
 private:
-    std::string name = "NULL";
+    std::string name;
 
     sf::Texture texture;
     sf::Sprite sprite;
-    Side side = Down;
+    Side side;
 
     mutable sf::Text description;
 };

@@ -9,11 +9,11 @@ Game::Game(sf::RenderWindow &window) {
             defaultEvents(window, event);
         }
         window.clear();
-        for(auto i : toDraw) {
-            window.draw(*i);
+        for(uint i = 0; i < toDraw.size(); i++) {
+            window.draw(*toDraw[i]);
         }
-        for(auto i : npc) {
-            window.draw(i);
+        for(uint i = 0; i < npc.size(); i++) {
+            window.draw(npc[i]);
         }
         window.display();
     }
@@ -42,6 +42,7 @@ void Game::load(uint number, const sf::RenderWindow &window) {
             break;
         npc.push_back(NPC(name,
                           config.readInt("NPC" + std::to_string(i), "x", 0),
-                          config.readInt("NPC" + std::to_string(i), "y", 0)));
+                          config.readInt("NPC" + std::to_string(i), "y", 0),
+                          (NPC::Side)config.readString("NPC" + std::to_string(i), "s", "D")[0]));
     }
 }
