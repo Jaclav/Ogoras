@@ -1,4 +1,9 @@
 #include "NPC.hpp"
+#include <iostream>
+
+NPC::NPC(const NPC &other) : name(other.name), sprite(other.sprite), side(other.side), description(other.description) {
+    loadTexture(side);
+}
 
 NPC::NPC(std::string name, uint posX, uint posY) {
     this->name = name;
@@ -16,8 +21,9 @@ void NPC::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(description, states);
 }
 
-void NPC::loadTexture(Side side) {
+void NPC::loadTexture(Side side = Side::Down) {
     sf::IntRect ir(0, 0, 128, 128);
+    this->side = side;
     switch(side) {
     case Up: {
         ir.left = 0;

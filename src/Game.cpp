@@ -43,6 +43,5 @@ void Game::load(uint number, const sf::RenderWindow &window) {
         npc.push_back(NPC(name,
                           config.readInt("NPC" + std::to_string(i), "x", 0),
                           config.readInt("NPC" + std::to_string(i), "y", 0)));
-        npc[i].loadTexture((NPC::Side)config.readInt("NPC" + std::to_string(i), "s", NPC::Side::Down));
     }
 }
