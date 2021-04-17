@@ -5,19 +5,19 @@
 #include <SFML/Graphics/Sprite.hpp>
 
 #include "Entity.hpp"
+#include "tools.hpp"
 
 #include "../resources/player.png.hpp"
 
 class Player : public Entity {
 public:
-    Player();
-
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
-    void setPosition(uint x, uint y);
+    void setPositionAndSide(uint x, uint y, Side side);
     void touch();
 private:
     sf::Texture texture;
     sf::Sprite sprite;
+    Side side;
 };
 
 #endif //PLAYER_HPP

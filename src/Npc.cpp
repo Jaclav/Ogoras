@@ -22,29 +22,10 @@ void Npc::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 void Npc::loadTexture(Side side = Side::Down) {
-    sf::IntRect ir(0, 0, 128, 128);
     this->side = side;
-    switch(side) {
-    case Up: {
-        ir.left = 0;
-        break;
-    }
-    case Down: {
-        ir.left = 128;
-        break;
-    }
-    case Right: {
-        ir.left = 256;
-        break;
-    }
-    case Left: {
-        ir.left = 384;
-        break;
-    }
-    }
     std::fstream file("data/characters/" + name + ".png", std::ios::in);
     if(file.good())
-        texture.loadFromFile("data/characters/" + name + ".png", ir);
+        texture.loadFromFile("data/characters/" + name + ".png", setIntRect(side));
     else
         texture.loadFromMemory(notFound_png, notFound_png_len);
     file.close();

@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
-Game::Game(sf::RenderWindow &window) : player() {
+Game::Game(sf::RenderWindow &window) {
     std::vector<sf::Drawable*>toDraw = {&background, &player};
     load(0, window);
 
@@ -21,6 +21,7 @@ Game::Game(sf::RenderWindow &window) : player() {
 
 void Game::load(uint number, const sf::RenderWindow &window) {
     std::string path = "data/lvl" + std::to_string(number) + "/";
+    config.setName(path + "map.ini");
     //background
     if(!backgroundT.loadFromFile(path + "map.png"))
         exit(0);
@@ -28,9 +29,13 @@ void Game::load(uint number, const sf::RenderWindow &window) {
     background.setScale(window.getSize().x / background.getLocalBounds().width,
                         window.getSize().y / background.getLocalBounds().height);
 
+    //player
+    player.setPositionAndSide(config.readInt("Player", "x", 0),
+                              config.readInt("Player", "y", 0),
+                              (Npc::Side)config.readString("Player", "s", "D")[0]);
+
     //npc
     npc.clear();
-    config.setName(path + "map.ini");
     std::string name = "";
     for(uint i = 0; ; i++) {
         name = config.readString("Npc" + std::to_string(i), "name", "NULL");

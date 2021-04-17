@@ -57,3 +57,26 @@ void setAndAlignText(sf::Text &text, std::wstring str, u_int windowWidth, u_int 
     text.setString(str);
     text.setPosition(windowWidth / 2 - text.getLocalBounds().width / 2, posY);
 }
+
+sf::IntRect setIntRect(Entity::Side side) {
+    sf::IntRect ir(0, 0, 128, 128);
+    switch(side) {
+    case Entity::Side::Up: {
+        ir.left = 0;
+        break;
+    }
+    case Entity::Side::Down: {
+        ir.left = 128;
+        break;
+    }
+    case Entity::Side::Right: {
+        ir.left = 256;
+        break;
+    }
+    case Entity::Side::Left: {
+        ir.left = 384;
+        break;
+    }
+    }
+    return ir;
+}

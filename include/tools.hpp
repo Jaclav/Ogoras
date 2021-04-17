@@ -13,9 +13,12 @@ typedef unsigned int uint;
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Mouse.hpp>
 
+#include "Entity.hpp"
+
 void defaultEvents(sf::RenderWindow &window, sf::Event event);
 void draw(sf::RenderWindow &window, sf::Drawable *toDraw[], const int quantity);
 bool isMouseCovering(sf::Vector2f position, sf::Vector2f size);
 void setAndAlignText(sf::Text &text, std::wstring str, uint windowWidth, uint posY);
+sf::IntRect setIntRect(Entity::Side side);
 
 #endif //TOOLS_HPP
