@@ -37,12 +37,12 @@ void Game::load(uint number, const sf::RenderWindow &window) {
     config.setName(path + "map.ini");
     std::string name = "";
     for(uint i = 0; ; i++) {
-        name = config.readString("NPC" + std::to_string(i), "name", "NULL");
+        name = config.readString("Npc" + std::to_string(i), "name", "NULL");
         if(name == "NULL")
             break;
-        npc.push_back(NPC(name,
-                          config.readInt("NPC" + std::to_string(i), "x", 0),
-                          config.readInt("NPC" + std::to_string(i), "y", 0),
-                          (NPC::Side)config.readString("NPC" + std::to_string(i), "s", "D")[0]));
+        npc.push_back(Npc(name,
+                          config.readInt("Npc" + std::to_string(i), "x", 0),
+                          config.readInt("Npc" + std::to_string(i), "y", 0),
+                          (Npc::Side)config.readString("Npc" + std::to_string(i), "s", "D")[0]));
     }
 }

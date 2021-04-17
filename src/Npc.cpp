@@ -1,10 +1,10 @@
-#include "NPC.hpp"
+#include "Npc.hpp"
 
-NPC::NPC(const NPC &other) : name(other.name), sprite(other.sprite), side(other.side), description(other.description) {
+Npc::Npc(const Npc &other) : name(other.name), sprite(other.sprite), side(other.side), description(other.description) {
     loadTexture(side);
 }
 
-NPC::NPC(std::string name, uint posX, uint posY, Side side) {
+Npc::Npc(std::string name, uint posX, uint posY, Side side) {
     this->name = name;
     sprite.setPosition(posX, posY);
     this->side = side;
@@ -15,13 +15,13 @@ NPC::NPC(std::string name, uint posX, uint posY, Side side) {
     description.setOutlineThickness(2);
 }
 
-void NPC::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+void Npc::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(sprite, states);
     description.setPosition(sprite.getPosition().x + (sprite.getLocalBounds().width - description.getLocalBounds().width) / 2, sprite.getPosition().y - description.getLocalBounds().height);
     target.draw(description, states);
 }
 
-void NPC::loadTexture(Side side = Side::Down) {
+void Npc::loadTexture(Side side = Side::Down) {
     sf::IntRect ir(0, 0, 128, 128);
     this->side = side;
     switch(side) {
@@ -51,6 +51,6 @@ void NPC::loadTexture(Side side = Side::Down) {
     sprite.setTexture(texture);
 }
 
-void NPC::touch() {
+void Npc::touch() {
     //what have to do when touched?
 }

@@ -5,7 +5,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "NPC.hpp"
+#include "Npc.hpp"
 #include "Ini.hpp"
 #include "tools.hpp"
 
@@ -15,7 +15,7 @@ class Game {
     sf::Texture backgroundT;
     sf::Sprite background;
 
-    std::vector<NPC>npc;
+    std::vector<Npc>npc;
 
     Ini config;
     void load(uint number, const sf::RenderWindow &window);

@@ -12,10 +12,10 @@
 
 extern sf::Font font;
 
-class NPC : public Entity {
+class Npc : public Entity {
 public:
-    NPC(const NPC &other);
-    NPC(std::string name, uint posX, uint posY, Side side);
+    Npc(const Npc &other);
+    Npc(std::string name, uint posX, uint posY, Side side);
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void loadTexture(Side side);
