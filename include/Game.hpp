@@ -7,6 +7,7 @@
 
 #include "Npc.hpp"
 #include "Ini.hpp"
+#include "Player.hpp"
 #include "tools.hpp"
 
 class Game {
@@ -20,6 +21,7 @@ private:
     sf::Sprite background;
 
     std::vector<Npc>npc;
+    Player player;
 
     Ini config;
     void load(uint number, const sf::RenderWindow &window);

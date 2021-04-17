@@ -1,7 +1,7 @@
 #include "Game.hpp"
 
 Game::Game(sf::RenderWindow &window) {
-    std::vector<sf::Drawable*>toDraw = {&background};
+    std::vector<sf::Drawable*>toDraw = {&background, &player};
     load(0, window);
 
     while(window.isOpen()) {
