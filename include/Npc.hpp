@@ -3,7 +3,9 @@
 
 #include <fstream>
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
 #include "Entity.hpp"
 #include "tools.hpp"
@@ -17,7 +19,7 @@ public:
     Npc(const Npc &other);
     Npc(std::string name, uint posX, uint posY, Side side);
 
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void loadTexture(Side side);
     void touch();
 private:

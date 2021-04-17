@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 #include "Game.hpp"
 #include "Menu.hpp"

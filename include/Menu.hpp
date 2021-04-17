@@ -1,7 +1,9 @@
 #ifndef MENU_HPP
 #define MENU_HPP
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
 #include "Button.hpp"
 #include "tools.hpp"
@@ -13,6 +15,14 @@
 extern sf::Font font;
 
 class Menu {
+public:
+    Menu(sf::RenderWindow &window);
+    void setDefault(sf::RenderWindow &window);
+    void start(sf::RenderWindow &window);
+    void stop(sf::RenderWindow &window);
+
+    bool shouldPlay = false;
+private:
     enum Returned {Back, Play};
     Returned play(sf::RenderWindow &window);
 
@@ -24,14 +34,6 @@ class Menu {
     sf::Text mainText;
     sf::Text subText;
     const std::wstring mainTextStr = L"Ogóras";
-public:
-    Menu(sf::RenderWindow &window);
-    ~Menu();
-    void setDefault(sf::RenderWindow &window);
-    void start(sf::RenderWindow &window);
-    void stop(sf::RenderWindow &window);
-
-    bool shouldPlay = false;
 };
 
 #endif //MENU_HPP

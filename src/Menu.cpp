@@ -17,8 +17,10 @@ Menu::Menu(sf::RenderWindow &window) {
                         window.getSize().y / background.getLocalBounds().height);
 }
 
-Menu::~Menu() {
-
+void Menu::setDefault(sf::RenderWindow &window) {
+    setAndAlignText(mainText, mainTextStr, window.getSize().x, 100);
+    subText.setString(version);
+    subText.setPosition(0, 0);
 }
 
 void Menu::start(sf::RenderWindow &window) {
@@ -77,12 +79,6 @@ void Menu::start(sf::RenderWindow &window) {
 
         draw(window, toDraw, sizeof(toDraw) / sizeof(toDraw[0]));
     }
-}
-
-void Menu::setDefault(sf::RenderWindow &window) {
-    setAndAlignText(mainText, mainTextStr, window.getSize().x, 100);
-    subText.setString(version);
-    subText.setPosition(0, 0);
 }
 
 void Menu::stop(sf::RenderWindow &window) {

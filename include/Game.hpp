@@ -3,13 +3,17 @@
 
 #include <vector>
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 #include "Npc.hpp"
 #include "Ini.hpp"
 #include "tools.hpp"
 
 class Game {
+public:
+    Game(sf::RenderWindow &window);
+
+private:
     sf::Event event;
 
     sf::Texture backgroundT;
@@ -19,9 +23,6 @@ class Game {
 
     Ini config;
     void load(uint number, const sf::RenderWindow &window);
-public:
-    Game(sf::RenderWindow &window);
-    ~Game();
 };
 
 #endif //GAME_HPP

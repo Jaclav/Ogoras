@@ -19,10 +19,6 @@ Game::Game(sf::RenderWindow &window) {
     }
 }
 
-Game::~Game() {
-
-}
-
 void Game::load(uint number, const sf::RenderWindow &window) {
     std::string path = "data/lvl" + std::to_string(number) + "/";
     //background

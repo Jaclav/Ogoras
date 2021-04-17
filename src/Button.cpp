@@ -21,10 +21,6 @@ Button::Button(int x, int y, int width, int height, std::string str, std::functi
     text.setPosition(x + (width - text.getLocalBounds().width) / 2, y + (height - text.getLocalBounds().height * 1.2) / 2);
 }
 
-Button::~Button() {
-    //dtor
-}
-
 void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(rect, states);
     target.draw(text, states);

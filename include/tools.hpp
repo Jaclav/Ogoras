@@ -1,13 +1,17 @@
 #ifndef TOOLS_HPP
 #define TOOLS_HPP
 
-#include <cmath>
 #ifdef _WIN32
 #include <windows.h>
 typedef unsigned int uint;
 #endif //_WIN32
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Event.hpp>
+#include <SFML/Window/Keyboard.hpp>
+#include <SFML/Window/Mouse.hpp>
 
 void defaultEvents(sf::RenderWindow &window, sf::Event event);
 void draw(sf::RenderWindow &window, sf::Drawable *toDraw[], const int quantity);
