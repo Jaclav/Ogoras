@@ -7,6 +7,18 @@ Game::Game(sf::RenderWindow &window) {
     while(window.isOpen()) {
         while(window.pollEvent(event)) {
             defaultEvents(window, event);
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+                player.move(Player::Up);
+            }
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+                player.move(Player::Down);
+            }
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+                player.move(Player::Right);
+            }
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+                player.move(Player::Left);
+            }
         }
         window.clear();
         for(uint i = 0; i < toDraw.size(); i++) {

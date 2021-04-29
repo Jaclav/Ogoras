@@ -12,12 +12,14 @@
 class Player : public Entity {
 public:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+    void move(Side side);
     void setPositionAndSide(uint x, uint y, Side side);
     void touch();
 private:
     sf::Texture texture;
     sf::Sprite sprite;
     Side side;
+    u_char velocity = 64;
 };
 
 #endif //PLAYER_HPP
