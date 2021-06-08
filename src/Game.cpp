@@ -1,5 +1,8 @@
 #include "Game.hpp"
 
+//TODO add function events and draw
+//TODO add in NPC touch dialogs
+
 Game::Game(sf::RenderWindow &window) {
     std::vector<sf::Drawable*>toDraw = {&background, &player};
     load(0, window);
@@ -34,6 +37,7 @@ Game::Game(sf::RenderWindow &window) {
 void Game::load(uint number, const sf::RenderWindow &window) {
     std::string path = "data/lvl" + std::to_string(number) + "/";
     config.setName(path + "map.ini");
+
     //background
     if(!backgroundT.loadFromFile(path + "map.png"))
         exit(0);
