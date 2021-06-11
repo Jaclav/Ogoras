@@ -36,7 +36,7 @@ Game::Game(sf::RenderWindow &window) {
 
 void Game::load(uint number, const sf::RenderWindow &window) {
     std::string path = "data/lvl" + std::to_string(number) + "/";
-    config.setName(path + "map.ini");
+    config.setName(path + "config.ini");
 
     //background
     if(!backgroundT.loadFromFile(path + "map.png"))
@@ -59,12 +59,6 @@ void Game::load(uint number, const sf::RenderWindow &window) {
     npc.reserve(quiantity);
 
     for(uint i = 0; i < quiantity; i++) {
-        name = config.readString("Npc" + std::to_string(i), "name", "NULL");
-        if(name == "NULL")
-            break;
-        npc.push_back(Npc(name,
-                          config.readInt("Npc" + std::to_string(i), "x", 0),
-                          config.readInt("Npc" + std::to_string(i), "y", 0),
-                          (Npc::Side)config.readString("Npc" + std::to_string(i), "s", "D")[0]));
+        npc.push_back(Npc(i, path + "config.ini"));//Allocate number to Npc and give path with cnfig file
     }
 }
