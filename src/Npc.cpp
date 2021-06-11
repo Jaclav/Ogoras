@@ -19,7 +19,7 @@ Npc::Npc(int number, std::string path) {
     this->side = side;
 
     //load and set texture
-    std::fstream file("data/characters/" + name + ".png", std::ios::in);
+    std::ifstream file("data/characters/" + name + ".png", std::ios::in);
     if(file.good())
         texture.loadFromFile("data/characters/" + name + ".png", setIntRect(side));
     else
@@ -42,5 +42,5 @@ void Npc::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 void Npc::touch() {
-    //what have to do when touched?
+    //TODO add in touch dialogs
 }

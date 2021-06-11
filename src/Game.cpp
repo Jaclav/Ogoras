@@ -1,7 +1,6 @@
 #include "Game.hpp"
 
 //TODO add function events and draw
-//TODO add in NPC touch dialogs
 
 Game::Game(sf::RenderWindow &window) {
     std::vector<sf::Drawable*>toDraw = {&background, &player};
