@@ -10,7 +10,6 @@ class Entity : public sf::Drawable {
 public:
     enum Side {Up = 'U', Down = 'D', Right = 'R', Left = 'L'};
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const = 0;
-    virtual void touch() = 0;
 };
 
 #endif //ENTITY_HPP

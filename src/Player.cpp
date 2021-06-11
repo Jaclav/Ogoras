@@ -28,7 +28,3 @@ void Player::setPositionAndSide(uint x, uint y, Side side) {
     sprite.setTexture(texture);
     sprite.setPosition(x, y);
 }
-
-void Player::touch() {
-
-}
