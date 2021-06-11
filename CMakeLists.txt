@@ -8,12 +8,12 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_compile_options(-Wall -Wextra -pedantic -std=c++11 -Os -s)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 if (WIN32)
-	file(GLOB SOURCES main.rc src/*.cpp)
+	file(GLOB SOURCES main.rc src/*.cpp lib/inicpp/Ini.cpp)
 else()
-	file(GLOB SOURCES src/*.cpp)
+	file(GLOB SOURCES src/*.cpp lib/inicpp/Ini.cpp)
 endif(WIN32)
 
 add_executable(Ogoras ${SOURCES})

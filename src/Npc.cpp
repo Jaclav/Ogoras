@@ -5,7 +5,7 @@ Npc::Npc(const Npc &other) : name(other.name), texture(other.texture), sprite(ot
 }
 
 Npc::Npc(int number, std::string path) {
-    config.setName(path);
+    config.setPath(path);
     name = config.readString("Npc" + std::to_string(number), "name", "NULL");
     if(name == "NULL")
         std::cerr << "NPC" << number << " name is NULL!\n";

@@ -36,7 +36,7 @@ Game::Game(sf::RenderWindow &window) {
 
 void Game::load(uint number, const sf::RenderWindow &window) {
     std::string path = "data/lvl" + std::to_string(number) + "/";
-    config.setName(path + "config.ini");
+    config.setPath(path + "config.ini");
 
     //background
     if(!backgroundT.loadFromFile(path + "map.png"))

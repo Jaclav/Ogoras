@@ -8,7 +8,7 @@
 #include <SFML/Graphics/Texture.hpp>
 
 #include "Entity.hpp"
-#include "Ini.hpp"
+#include "inicpp/Ini.hpp"
 #include "tools.hpp"
 
 #include "../resources/notFound.png.hpp"

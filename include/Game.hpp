@@ -6,7 +6,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "Npc.hpp"
-#include "Ini.hpp"
+#include "inicpp/Ini.hpp"
 #include "Player.hpp"
 #include "tools.hpp"
 
