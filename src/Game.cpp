@@ -53,7 +53,12 @@ void Game::load(uint number, const sf::RenderWindow &window) {
     //npc
     npc.clear();
     std::string name = "";
-    for(uint i = 0; ; i++) {
+    uint quiantity = config.readInt("Npc", "quantity", 0);
+    if(quiantity == 0)
+        return;
+    npc.reserve(quiantity);
+
+    for(uint i = 0; i < quiantity; i++) {
         name = config.readString("Npc" + std::to_string(i), "name", "NULL");
         if(name == "NULL")
             break;
