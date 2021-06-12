@@ -21,7 +21,7 @@ typedef unsigned int uint;
 #include "../resources/notFound.png.hpp"
 
 void defaultEvents(sf::RenderWindow &window, sf::Event event);
-void draw(sf::RenderWindow &window, sf::Drawable *toDraw[], const int quantity);
+void draw(sf::RenderWindow &window, std::vector<sf::Drawable*>&toDraw);
 void loadTexture(sf::Texture &texture, std::string pathToFile, Entity::Side side = Entity::Side::Up);
 bool isMouseCovering(sf::Vector2f position, sf::Vector2f size);
 void setAndAlignText(sf::Text &text, std::wstring str, uint windowWidth, uint posY);

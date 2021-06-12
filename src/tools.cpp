@@ -1,6 +1,12 @@
 #include "tools.hpp"
 
+bool showFpsCounter = false;
+
 void defaultEvents(sf::RenderWindow &window, sf::Event event) {
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::F3)) {
+        showFpsCounter = !showFpsCounter;
+        window.pollEvent(event);
+    }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::F12)) {
         sf::Texture printScreen;
         printScreen.create(window.getSize().x, window.getSize().y);
@@ -34,11 +40,26 @@ void defaultEvents(sf::RenderWindow &window, sf::Event event) {
     }
 }
 
-void draw(sf::RenderWindow &window, sf::Drawable *toDraw[], const int quantity) {
-    window.clear();
-    for(int i = 0; i < quantity; i++)
+void draw(sf::RenderWindow &window, std::vector<sf::Drawable*>&toDraw) {
+    for(int i = 0; i < toDraw.size(); i++)
         window.draw(*toDraw[i]);
-    window.display();
+
+    static sf::Clock fpsClock;
+    static int fpsCounter;
+    static sf::Text fpsText("", font);
+
+    //fps
+    if(fpsClock.getElapsedTime().asMilliseconds() >= 1000) {
+        fpsClock.restart();
+        fpsText.setString(std::to_string(fpsCounter));
+        fpsCounter = 0;
+    }
+    else {
+        fpsCounter++;
+    }
+    if(showFpsCounter) {
+        window.draw(fpsText);
+    }
     return;
 }
 

@@ -34,7 +34,7 @@ void Menu::start(sf::RenderWindow &window) {
         subText.setString(L"Usage:");
         subText.setPosition(window.getSize().x / 10, 300);
 
-        sf::Drawable *toDraw[] = {&background, &backButton, &mainText, &subText};
+        std::vector<sf::Drawable*> toDraw{&background, &backButton, &mainText, &subText};
 
         while(window.isOpen()) {
             while(window.pollEvent(event)) {
@@ -44,7 +44,9 @@ void Menu::start(sf::RenderWindow &window) {
                     return;
                 }
             }
-            draw(window, toDraw, sizeof(toDraw) / sizeof(toDraw[0]));
+            window.clear();
+            draw(window, toDraw);
+            window.display();
         }
     });
     Button creditsButton(window.getSize().x / 8, window.getSize().y / 3 + 250, 237.5, 100, "Credits", [&]() {
@@ -53,7 +55,7 @@ void Menu::start(sf::RenderWindow &window) {
         subText.setString(L"Game created by: Jacław\nTextures created by: Skryty\nGraphic library: SFML created by Laurent Gomila\nFont used: DejaVuSans");
         subText.setPosition(window.getSize().x / 10, 300);
 
-        sf::Drawable *toDraw[] = {&background, &backButton, &mainText, &subText};
+        std::vector<sf::Drawable*> toDraw{&background, &backButton, &mainText, &subText};
 
         while(window.isOpen()) {
             while(window.pollEvent(event)) {
@@ -63,21 +65,24 @@ void Menu::start(sf::RenderWindow &window) {
                     return;
                 }
             }
-            draw(window, toDraw, sizeof(toDraw) / sizeof(toDraw[0]));
+            window.clear();
+            draw(window, toDraw);
+            window.display();
         }
     });
     Button quitButton(window.getSize().x / 8 + 262.5, window.getSize().y / 3 + 250, 237.5, 100, "Quit", [&]() {
         window.close();
     });
 
-    sf::Drawable *toDraw[] = {&background, &playButton, &settingsButton, &creditsButton, &quitButton, &mainText, &subText};
+    std::vector<sf::Drawable*> toDraw{&background, &playButton, &settingsButton, &creditsButton, &quitButton, &mainText, &subText};
 
     while(window.isOpen() && !shouldPlay) {
         while(window.pollEvent(event)) {
             defaultEvents(window, event);
         }
-
-        draw(window, toDraw, sizeof(toDraw) / sizeof(toDraw[0]));
+        window.clear();
+        draw(window, toDraw);
+        window.display();
     }
 }
 

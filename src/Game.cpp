@@ -1,11 +1,9 @@
 #include "Game.hpp"
 
-//TODO add function events and draw
-
 Game::Game(sf::RenderWindow &window) : console(window.getSize()) {
     std::vector<sf::Drawable*>toDraw = {&background, &player, &console};
     load(0, window);
-    console.pushMessage("Game loaded.");
+    Console::pushMessage("Game loaded");
 
     while(window.isOpen()) {
         while(window.pollEvent(event)) {
@@ -25,9 +23,7 @@ Game::Game(sf::RenderWindow &window) : console(window.getSize()) {
             console.handleEvent(event);
         }
         window.clear();
-        for(uint i = 0; i < toDraw.size(); i++) {
-            window.draw(*toDraw[i]);
-        }
+        draw(window, toDraw);
         for(uint i = 0; i < npc.size(); i++) {
             window.draw(npc[i]);
         }
