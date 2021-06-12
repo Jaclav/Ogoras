@@ -3,9 +3,18 @@
 //TODO add function events and draw
 //TODO add in NPC touch dialogs
 
-Game::Game(sf::RenderWindow &window) {
-    std::vector<sf::Drawable*>toDraw = {&background, &player};
+Game::Game(sf::RenderWindow &window) : console(window.getSize()) {
+    std::vector<sf::Drawable*>toDraw = {&background, &player, &console};
     load(0, window);
+    console.pushMessage("1");
+    console.pushMessage("2");
+    console.pushMessage("3");
+    console.pushMessage("4");
+    console.pushMessage("5");
+    console.pushMessage("6");
+    console.pushMessage("7");
+    console.pushMessage("8");
+    //Console::pushMessage("9");
 
     while(window.isOpen()) {
         while(window.pollEvent(event)) {
@@ -22,6 +31,7 @@ Game::Game(sf::RenderWindow &window) {
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
                 player.move(Player::Left);
             }
+            console.handleEvent(event);
         }
         window.clear();
         for(uint i = 0; i < toDraw.size(); i++) {

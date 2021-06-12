@@ -5,6 +5,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include "Console.hpp"
 #include "Npc.hpp"
 #include "inicpp/Ini.hpp"
 #include "Player.hpp"
@@ -24,6 +25,7 @@ private:
     Player player;
 
     Ini config;
+    Console console;
     void load(uint number, const sf::RenderWindow &window);
 };
 
