@@ -20,7 +20,7 @@ public:
     void load(std::string path);
     bool shouldMove(sf::Vector2<units> position);
 private:
-    std::vector<std::vector<Blocks>>map ;//what draw
+    std::vector<std::vector<Blocks>>map;
 
     sf::Sprite sprite;
     sf::Texture texture;

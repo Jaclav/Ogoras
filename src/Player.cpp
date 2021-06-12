@@ -10,15 +10,19 @@ void Player::move(Side side) {
     switch(side) {
     case Up:
         sprite.move(0, -velocity * PIXELS_PER_UNIT);
+        position.y -= 1;
         break;
     case Down:
         sprite.move(0, velocity * PIXELS_PER_UNIT);
+        position.y += 1;
         break;
     case Right:
         sprite.move(velocity * PIXELS_PER_UNIT, 0);
+        position.x += 1;
         break;
     case Left:
         sprite.move(-velocity * PIXELS_PER_UNIT, 0);
+        position.x -= 1;
         break;
     }
 }
