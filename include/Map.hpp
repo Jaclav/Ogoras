@@ -6,6 +6,8 @@
 
 #include <SFML/Graphics/Drawable.hpp>
 
+#include "tools.hpp"
+
 class Map : sf::Drawable {
 public:
     enum Blocks {Air = 0, Border = 1};
