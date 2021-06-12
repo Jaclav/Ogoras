@@ -20,7 +20,7 @@ Npc::Npc(int number, std::string path) {
 
     loadTexture(texture, "data/characters/" + name + ".png", side);
     sprite.setTexture(texture);
-    sprite.setPosition(position.x, position.y);
+    sprite.setPosition(position.x * PIXELS_PER_UNIT, position.y * PIXELS_PER_UNIT);
 
     //set description
     description.setFont(font);

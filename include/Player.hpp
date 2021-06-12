@@ -18,7 +18,7 @@ private:
     sf::Texture texture;
     sf::Sprite sprite;
     Side side;
-    u_char velocity = 64;
+    u_char velocity = 1;
 };
 
 #endif //PLAYER_HPP

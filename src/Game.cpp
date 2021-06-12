@@ -48,6 +48,7 @@ void Game::load(uint number, const sf::RenderWindow &window) {
                               (Npc::Side)config.readString("Player", "s", "D")[0]);
 
     //npc
+    config.setPath(path + "npc.ini");
     npc.clear();
     std::string name = "";
     uint quiantity = config.readInt("Npc", "quantity", 0);
@@ -56,6 +57,6 @@ void Game::load(uint number, const sf::RenderWindow &window) {
     npc.reserve(quiantity);
 
     for(uint i = 0; i < quiantity; i++) {
-        npc.push_back(Npc(i, path + "config.ini"));//Allocate number to Npc and give path with cnfig file
+        npc.push_back(Npc(i, path + "npc.ini"));//Allocate number to Npc and give path with cnfig file
     }
 }

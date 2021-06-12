@@ -20,6 +20,8 @@ typedef unsigned int uint;
 
 #include "../resources/notFound.png.hpp"
 
+static const u_char PIXELS_PER_UNIT = 128;
+
 void defaultEvents(sf::RenderWindow &window, sf::Event event);
 void draw(sf::RenderWindow &window, std::vector<sf::Drawable*>&toDraw);
 void loadTexture(sf::Texture &texture, std::string pathToFile, Entity::Side side = Entity::Side::Up);
