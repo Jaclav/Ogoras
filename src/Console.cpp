@@ -48,7 +48,7 @@ void Console::handleEvent(sf::Event &event) {
 
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
-            //TODO add interpreter
+            interpret(typedString);
             typedString = "";
         }
         typedText.setString(">" + typedString);
@@ -71,4 +71,24 @@ void Console::pushMessage(std::string message) {
         previousString = previousString.substr(previousString.find("\n") + 1, previousString.size() - previousString.find("\n"));
     }
     previousText.setString(previousString);
+}
+
+Console::Settings Console::getSettings() {
+    return settings;
+}
+
+void Console::interpret(std::string command) {
+    std::string cmd = command.substr(0, command.find(" "));
+    int p1 = 0;
+    try {
+        p1 = std::stoi(command.substr(command.find(" "), command.find_last_of(" ")));
+    }
+    catch(...) {}
+    if(cmd == "noclip") {
+        settings.noclip = p1;
+        pushMessage("Noclip setted");
+    }
+    else {
+        pushMessage("Command not found!");
+    }
 }

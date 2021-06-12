@@ -12,9 +12,9 @@
 
 class Map : public sf::Drawable {
 public:
-    enum Blocks {Air = 0, Border = 1};
-
     Map();
+
+    enum Blocks {Air = 0, Border = 1};
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
     void load(std::string path);

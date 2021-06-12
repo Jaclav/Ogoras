@@ -29,6 +29,10 @@ void Map::load(std::string path) {
 }
 
 bool Map::shouldMove(sf::Vector2<units> position) {
+    if(position.y >= map.size() || position.x >= map[0].size()) {
+        return false;
+    }
+
     if(map[position.y][position.x] == Air) {
         return true;
     }

@@ -21,9 +21,16 @@ class Console : public sf::Drawable {
 public:
     Console(sf::Vector2u windowSize);
 
+    struct Settings {
+        bool noclip = false;
+    } settings;
+
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
     void handleEvent(sf::Event &event);
     void static pushMessage(std::string message);
+
+    Settings getSettings();
+    void interpret(std::string command);
 
 private:
     bool activated = false;
