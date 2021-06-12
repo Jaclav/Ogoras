@@ -19,11 +19,7 @@ Npc::Npc(int number, std::string path) {
     this->side = side;
 
     //load and set texture
-<<<<<<< HEAD
-    std::ifstream file("data/characters/" + name + ".png");
-=======
     std::ifstream file("data/characters/" + name + ".png", std::ios::in);
->>>>>>> ab4186d885b97b4ec07613d6a41d5ad513862aa9
     if(file.good())
         texture.loadFromFile("data/characters/" + name + ".png", setIntRect(side));
     else

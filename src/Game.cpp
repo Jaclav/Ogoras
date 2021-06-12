@@ -5,15 +5,7 @@
 Game::Game(sf::RenderWindow &window) : console(window.getSize()) {
     std::vector<sf::Drawable*>toDraw = {&background, &player, &console};
     load(0, window);
-    console.pushMessage("1");
-    console.pushMessage("2");
-    console.pushMessage("3");
-    console.pushMessage("4");
-    console.pushMessage("5");
-    console.pushMessage("6");
-    console.pushMessage("7");
-    console.pushMessage("8");
-    //Console::pushMessage("9");
+    console.pushMessage("Game loaded.");
 
     while(window.isOpen()) {
         while(window.pollEvent(event)) {

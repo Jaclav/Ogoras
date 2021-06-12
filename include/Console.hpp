@@ -23,18 +23,17 @@ public:
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
     void handleEvent(sf::Event &event);
-    void pushError(std::string message);
-    void pushMessage(std::string message);
+    void static pushMessage(std::string message);
 
 private:
     bool activated = false;
 
-    sf::RectangleShape background;
+    static sf::RectangleShape background;
 
     static std::string previousString;
-    sf::Text previousText;
+    static sf::Text previousText;
     static std::string typedString;
-    sf::Text typedText;
+    static sf::Text typedText;
 };
 
 #endif //CONSOLE_HPP
