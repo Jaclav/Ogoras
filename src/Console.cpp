@@ -11,7 +11,7 @@ sf::Text Console::previousText("", font);
 Console::Console(sf::Vector2u windowSize) {
     background.setSize(sf::Vector2f(windowSize.x / 2.5, windowSize.y / 4));
     background.setPosition(0, windowSize.y - background.getLocalBounds().height);
-    background.setFillColor(sf::Color(150, 150, 150, 150));
+    background.setFillColor(sf::Color(128, 128, 128, 150));//button's color
 
     previousText.setPosition(10, background.getPosition().y);
     previousText.setFillColor(sf::Color::Black);
@@ -46,6 +46,10 @@ void Console::handleEvent(sf::Event &event) {
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::V) && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
             typedString = sf::Clipboard::getString();
 
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+            //TODO add interpreter
+            typedString = "";
         }
         typedText.setString(">" + typedString);
     }
