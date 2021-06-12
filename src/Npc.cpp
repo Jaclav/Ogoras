@@ -18,13 +18,7 @@ Npc::Npc(int number, std::string path) {
     side = (Npc::Side)config.readString("Npc" + std::to_string(number), "s", "D")[0];
     this->side = side;
 
-    //load and set texture
-    std::ifstream file("data/characters/" + name + ".png", std::ios::in);
-    if(file.good())
-        texture.loadFromFile("data/characters/" + name + ".png", setIntRect(side));
-    else
-        texture.loadFromMemory(notFound_png, notFound_png_len);
-    file.close();
+    loadTexture(texture, "data/characters/" + name + ".png", side);
     sprite.setTexture(texture);
     sprite.setPosition(position.x, position.y);
 

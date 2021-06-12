@@ -42,6 +42,18 @@ void draw(sf::RenderWindow &window, sf::Drawable *toDraw[], const int quantity) 
     return;
 }
 
+void loadTexture(sf::Texture &texture, std::string pathToFile, Entity::Side side) {
+    //load and set texture
+    std::ifstream file(pathToFile, std::ios::in);
+    if(file.good())
+        texture.loadFromFile(pathToFile, setIntRect(side));
+    else {
+        texture.loadFromMemory(notFound_png, notFound_png_len);
+        Console::pushMessage("Cannot load " + pathToFile);
+    }
+    file.close();
+}
+
 bool isMouseCovering(sf::Vector2f position, sf::Vector2f size) {
     if(sf::Mouse::getPosition().x >= position.x &&
             sf::Mouse::getPosition().x <= position.x + size.x &&

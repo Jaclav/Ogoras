@@ -9,7 +9,7 @@ std::string Console::previousString = "";
 sf::Text Console::previousText("", font);
 
 Console::Console(sf::Vector2u windowSize) {
-    background.setSize(sf::Vector2f(windowSize.x / 3, windowSize.y / 4));
+    background.setSize(sf::Vector2f(windowSize.x / 2.5, windowSize.y / 4));
     background.setPosition(0, windowSize.y - background.getLocalBounds().height);
     background.setFillColor(sf::Color(150, 150, 150, 150));
 
