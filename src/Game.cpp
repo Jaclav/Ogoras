@@ -2,7 +2,7 @@
 
 Game::Game(sf::RenderWindow &window) : console(window.getSize()) {
     std::vector<sf::Drawable*>toDraw = {&background, &map, &player, &console};
-    load(0, window);
+    load(0, window.getSize());
     Console::pushMessage("Game loaded");
 
     while(window.isOpen()) {
@@ -10,15 +10,23 @@ Game::Game(sf::RenderWindow &window) : console(window.getSize()) {
             defaultEvents(window, event);
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
                 player.move(Player::Up);
+                if(!map.shouldMove(player.getPosition()))
+                    player.move(Player::Down);//antagonist move
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
                 player.move(Player::Down);
+                if(!map.shouldMove(player.getPosition()))
+                    player.move(Player::Up);
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
                 player.move(Player::Right);
+                if(!map.shouldMove(player.getPosition()))
+                    player.move(Player::Left);
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
                 player.move(Player::Left);
+                if(!map.shouldMove(player.getPosition()))
+                    player.move(Player::Right);
             }
             console.handleEvent(event);
         }
@@ -31,16 +39,12 @@ Game::Game(sf::RenderWindow &window) : console(window.getSize()) {
     }
 }
 
-void Game::load(uint number, const sf::RenderWindow &window) {
+void Game::load(uint number, sf::Vector2u windowSize) {
     std::string path = "data/lvl" + std::to_string(number) + "/";
     config.setPath(path + "config.ini");
 
-    //background
-    if(!backgroundT.loadFromFile(path + "map.png"))
-        exit(0);
-    background.setTexture(backgroundT);
-    background.setScale(window.getSize().x / background.getLocalBounds().width,
-                        window.getSize().y / background.getLocalBounds().height);
+    //map
+    map.load(path + "map.lvl");
 
     //player
     player.setPositionAndSide(config.readInt("Player", "x", 0),
@@ -59,4 +63,11 @@ void Game::load(uint number, const sf::RenderWindow &window) {
     for(uint i = 0; i < quiantity; i++) {
         npc.push_back(Npc(i, path + "npc.ini"));//Allocate number to Npc and give path with cnfig file
     }
+
+    //background
+    if(!backgroundT.loadFromFile(path + "map.png"))
+        exit(0);
+    background.setTexture(backgroundT);
+    background.setScale(windowSize.x / background.getLocalBounds().width,
+                        windowSize.y / background.getLocalBounds().height);
 }

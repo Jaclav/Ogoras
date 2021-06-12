@@ -13,12 +13,17 @@ class Player : public Entity {
 public:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
     void move(Side side);
-    void setPositionAndSide(uint x, uint y, Side side);
+
+    sf::Vector2<units> getPosition();
+    void setPositionAndSide(units x, units y, Side side);
+
 private:
-    sf::Texture texture;
-    sf::Sprite sprite;
     Side side;
     u_char velocity = 1;
+    sf::Vector2<units> position;
+
+    sf::Texture texture;
+    sf::Sprite sprite;
 };
 
 #endif //PLAYER_HPP

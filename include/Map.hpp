@@ -1,6 +1,7 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 
+#include <fstream>
 #include <string>
 #include <vector>
 
@@ -17,7 +18,7 @@ public:
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
     void load(std::string path);
-    bool move(sf::Vector2i position);
+    bool shouldMove(sf::Vector2<units> position);
 private:
     std::vector<std::vector<Blocks>>map ;//what draw
 

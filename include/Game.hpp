@@ -19,16 +19,15 @@ public:
 private:
     sf::Event event;
 
+    Console console;
+    Ini config;
+    Map map;
+    Player player;
+    std::vector<Npc>npc;
+    void load(uint number, sf::Vector2u windowSize);
+
     sf::Texture backgroundT;
     sf::Sprite background;
-
-    std::vector<Npc>npc;
-    Player player;
-
-    Ini config;
-    Console console;
-    Map map;
-    void load(uint number, const sf::RenderWindow &window);
 };
 
 #endif //GAME_HPP

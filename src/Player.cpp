@@ -23,7 +23,14 @@ void Player::move(Side side) {
     }
 }
 
-void Player::setPositionAndSide(uint x, uint y, Side side) {
+sf::Vector2<units> Player::getPosition() {
+    return position;
+}
+
+void Player::setPositionAndSide(units x, units y, Side side) {
+    position.x = x;
+    position.y = y;
+
     texture.loadFromMemory(player_png, player_png_len, setIntRect(side));
     sprite.setTexture(texture);
     sprite.setPosition(x * PIXELS_PER_UNIT, y * PIXELS_PER_UNIT);

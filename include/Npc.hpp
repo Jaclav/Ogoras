@@ -31,7 +31,7 @@ private:
     sf::Texture texture;
     sf::Sprite sprite;
     Side side;
-    sf::Vector2i position;
+    sf::Vector2<units> position;
 
     mutable sf::Text description;
 };

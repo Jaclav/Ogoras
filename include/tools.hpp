@@ -22,6 +22,8 @@ typedef unsigned int uint;
 
 static const u_char PIXELS_PER_UNIT = 128;
 
+typedef unsigned int units;
+
 void defaultEvents(sf::RenderWindow &window, sf::Event event);
 void draw(sf::RenderWindow &window, std::vector<sf::Drawable*>&toDraw);
 void loadTexture(sf::Texture &texture, std::string pathToFile);
