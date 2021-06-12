@@ -1,7 +1,7 @@
 #include "Game.hpp"
 
 Game::Game(sf::RenderWindow &window) : console(window.getSize()) {
-    std::vector<sf::Drawable*>toDraw = {&background, &player, &console};
+    std::vector<sf::Drawable*>toDraw = {&background, &map, &player, &console};
     load(0, window);
     Console::pushMessage("Game loaded");
 

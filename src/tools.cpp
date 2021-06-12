@@ -41,7 +41,7 @@ void defaultEvents(sf::RenderWindow &window, sf::Event event) {
 }
 
 void draw(sf::RenderWindow &window, std::vector<sf::Drawable*>&toDraw) {
-    for(int i = 0; i < toDraw.size(); i++)
+    for(long unsigned int i = 0; i < toDraw.size(); i++)
         window.draw(*toDraw[i]);
 
     static sf::Clock fpsClock;
@@ -63,13 +63,14 @@ void draw(sf::RenderWindow &window, std::vector<sf::Drawable*>&toDraw) {
     return;
 }
 
-void loadTexture(sf::Texture &texture, std::string pathToFile, Entity::Side side) {
+void loadTexture(sf::Texture &texture, std::string pathToFile) {
     //load and set texture
     std::ifstream file(pathToFile, std::ios::in);
     if(file.good())
-        texture.loadFromFile(pathToFile, setIntRect(side));
+        texture.loadFromFile(pathToFile);
     else {
         texture.loadFromMemory(notFound_png, notFound_png_len);
+        texture.setRepeated(true);
         Console::pushMessage("Cannot load " + pathToFile);
     }
     file.close();

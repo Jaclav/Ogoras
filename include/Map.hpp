@@ -5,17 +5,24 @@
 #include <vector>
 
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 
 #include "tools.hpp"
 
-class Map : sf::Drawable {
+class Map : public sf::Drawable {
 public:
     enum Blocks {Air = 0, Border = 1};
-    void draw(sf::RenderTarget &target, sf::RenderStates states);
+
+    Map();
+
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const;
     void load(std::string path);
-    Blocks& operator () (uint r, uint c);
+    bool move(sf::Vector2i position);
 private:
     std::vector<std::vector<Blocks>>map ;//what draw
+
+    sf::Sprite sprite;
+    sf::Texture texture;
 };
 
 #endif //MAP_HPP

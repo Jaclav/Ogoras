@@ -24,7 +24,7 @@ static const u_char PIXELS_PER_UNIT = 128;
 
 void defaultEvents(sf::RenderWindow &window, sf::Event event);
 void draw(sf::RenderWindow &window, std::vector<sf::Drawable*>&toDraw);
-void loadTexture(sf::Texture &texture, std::string pathToFile, Entity::Side side = Entity::Side::Up);
+void loadTexture(sf::Texture &texture, std::string pathToFile);
 bool isMouseCovering(sf::Vector2f position, sf::Vector2f size);
 void setAndAlignText(sf::Text &text, std::wstring str, uint windowWidth, uint posY);
 sf::IntRect setIntRect(Entity::Side side);
