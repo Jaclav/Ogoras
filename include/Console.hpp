@@ -32,7 +32,7 @@ public:
     void static pushMessage(std::string message);
 
     static Settings getSettings();
-    void interpret(std::string command);
+    static void interpret(std::string command);
 
 private:
     bool activated = false;

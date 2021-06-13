@@ -96,7 +96,11 @@ void Console::interpret(std::string command) {
     catch(...) {}
     if(cmd == "noclip") {
         settings.noclip = p1;
-        pushMessage("Noclip setted");
+        pushMessage("Noclip setted as " + std::to_string(p1));
+    }
+    else if(cmd == "clear") {
+        previousString = "";
+        previousText.setString(previousString);
     }
     else {
         pushMessage("Command not found!");
