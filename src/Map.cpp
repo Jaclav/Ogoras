@@ -30,6 +30,7 @@ void Map::load(std::string path) {
 
 bool Map::shouldMove(sf::Vector2<units> position) {
     if(position.y >= map.size() || position.x >= map[0].size()) {
+        Console::pushMessage("Reference to nonexisting map's memory!");
         return false;
     }
 

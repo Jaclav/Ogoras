@@ -1,8 +1,8 @@
 #ifndef CONSOLE_HPP
 #define CONSOLE_HPP
 
+#include <fstream>
 #include <string>
-#include <utility>
 #include <vector>
 
 #include <SFML/Graphics/RectangleShape.hpp>
@@ -20,6 +20,7 @@ extern sf::Font font;
 class Console : public sf::Drawable {
 public:
     Console(sf::Vector2u windowSize);
+    ~Console();
 
     struct Settings {
         bool noclip = false;
@@ -41,6 +42,8 @@ private:
     static sf::Text previousText;
     static std::string typedString;
     static sf::Text typedText;
+
+    static std::ofstream file;
 };
 
 #endif //CONSOLE_HPP

@@ -69,7 +69,7 @@ void Game::load(uint number, sf::Vector2u windowSize) {
     npc.reserve(quiantity);
 
     for(uint i = 0; i < quiantity; i++) {
-        npc.push_back(Npc(i, path + "npc.ini"));//Allocate number to Npc and give path with cnfig file
+        npc.push_back(Npc(i, path + "npc.ini"));//Allocate number to Npc and give path with config file
     }
 
     //background

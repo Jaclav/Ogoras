@@ -8,6 +8,8 @@ sf::Text Console::typedText(">", font);
 std::string Console::previousString = "";
 sf::Text Console::previousText("", font);
 
+std::ofstream Console::file("console.log", std::ios::out);
+
 Console::Console(sf::Vector2u windowSize) {
     background.setSize(sf::Vector2f(windowSize.x / 2.5, windowSize.y / 4));
     background.setPosition(0, windowSize.y - background.getLocalBounds().height);
@@ -18,6 +20,10 @@ Console::Console(sf::Vector2u windowSize) {
 
     typedText.setPosition(10, windowSize.y - typedText.getLocalBounds().height * 2.1);
     typedText.setFillColor(sf::Color::Black);
+}
+
+Console::~Console() {
+    file.close();
 }
 
 void Console::handleEvent(sf::Event &event) {
@@ -65,6 +71,8 @@ void Console::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 }
 
 void Console::pushMessage(std::string message) {
+    file << message << std::endl;
+
     previousString += message += "\n";
     previousText.setString(previousString);
     if(previousText.getLocalBounds().height > background.getSize().y - typedText.getLocalBounds().height) {
