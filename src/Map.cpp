@@ -33,6 +33,9 @@ bool Map::shouldMove(sf::Vector2<units> position) {
         Console::pushMessage("Reference to nonexisting map's memory!");
         return false;
     }
+    if(Console::getSettings().noclip) {
+        return true;
+    }
 
     if(map[position.y][position.x] == Air) {
         return true;

@@ -10,28 +10,28 @@ Game::Game(sf::RenderWindow &window) : console(window.getSize()) {
             defaultEvents(window, event);
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
                 player.move(Player::Up);
-                if(!(map.shouldMove(player.getPosition()) || console.getSettings().noclip))
+                if(!map.shouldMove(player.getPosition()))
                     player.move(Player::Down);//antagonist move
                 player.move(Player::Down);//move backward for next move
                 player.move(Player::Up);//move forward for setting side
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
                 player.move(Player::Down);
-                if(!(map.shouldMove(player.getPosition()) || console.getSettings().noclip))
+                if(!map.shouldMove(player.getPosition()))
                     player.move(Player::Up);
                 player.move(Player::Up);
                 player.move(Player::Down);
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
                 player.move(Player::Right);
-                if(!(map.shouldMove(player.getPosition()) || console.getSettings().noclip))
+                if(!map.shouldMove(player.getPosition()))
                     player.move(Player::Left);
                 player.move(Player::Left);
                 player.move(Player::Right);
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
                 player.move(Player::Left);
-                if(!(map.shouldMove(player.getPosition()) || console.getSettings().noclip))
+                if(!map.shouldMove(player.getPosition()))
                     player.move(Player::Right);
                 player.move(Player::Right);
                 player.move(Player::Left);

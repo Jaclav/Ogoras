@@ -1,5 +1,7 @@
 #include "Console.hpp"
 
+Console::Settings Console::settings = {};
+
 sf::RectangleShape Console::background;
 
 std::string Console::typedString = "";

@@ -24,13 +24,14 @@ public:
 
     struct Settings {
         bool noclip = false;
-    } settings;
+    };
+    static Settings settings;
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
     void handleEvent(sf::Event &event);
     void static pushMessage(std::string message);
 
-    Settings getSettings();
+    static Settings getSettings();
     void interpret(std::string command);
 
 private:
