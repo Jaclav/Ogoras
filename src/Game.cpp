@@ -10,31 +10,31 @@ Game::Game(sf::RenderWindow &window) : console(window.getSize()) {
             defaultEvents(window, event);
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
                 player.move(Player::Up);
-                if(!map.shouldMove(player.getPosition()))
+                if(!map.shouldMove(player.getPosition())) {
                     player.move(Player::Down);//antagonist move
-                player.move(Player::Down);//move backward for next move
-                player.move(Player::Up);//move forward for setting side
+                    player.setSide(Player::Side::Up);//set side after antagonist move
+                }
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
                 player.move(Player::Down);
-                if(!map.shouldMove(player.getPosition()))
-                    player.move(Player::Up);
-                player.move(Player::Up);
-                player.move(Player::Down);
+                if(!map.shouldMove(player.getPosition())) {
+                    player.move(Player::Up);//antagonist move
+                    player.setSide(Player::Side::Down);//set side after antagonist move
+                }
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
                 player.move(Player::Right);
-                if(!map.shouldMove(player.getPosition()))
-                    player.move(Player::Left);
-                player.move(Player::Left);
-                player.move(Player::Right);
+                if(!map.shouldMove(player.getPosition())) {
+                    player.move(Player::Left);//antagonist move
+                    player.setSide(Player::Side::Right);//set side after antagonist move
+                }
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
                 player.move(Player::Left);
-                if(!map.shouldMove(player.getPosition()))
-                    player.move(Player::Right);
-                player.move(Player::Right);
-                player.move(Player::Left);
+                if(!map.shouldMove(player.getPosition())) {
+                    player.move(Player::Right);//antagonist move
+                    player.setSide(Player::Side::Left);//set side after antagonist move
+                }
             }
             console.handleEvent(event);
         }
@@ -55,9 +55,9 @@ void Game::load(uint number, sf::Vector2u windowSize) {
     map.load(path + "map.lvl");
 
     //player
-    player.setPositionAndSide(config.readInt("Player", "x", 0),
-                              config.readInt("Player", "y", 0),
-                              (Npc::Side)config.readString("Player", "s", "D")[0]);
+    player.setPosition(config.readInt("Player", "x", 0),
+                       config.readInt("Player", "y", 0));
+    player.setSide((Npc::Side)config.readString("Player", "s", "D")[0]);
 
     //npc
     config.setPath(path + "npc.ini");

@@ -15,10 +15,11 @@ public:
     void move(Side side);
 
     sf::Vector2<units> getPosition();
-    void setPositionAndSide(units x, units y, Side side);
+    void setPosition(units x, units y);
+    void setSide(Side side);
 
 private:
-    Side side;
+    Side side = Side::Down;
     u_char velocity = 1;
     sf::Vector2<units> position;
 

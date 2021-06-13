@@ -6,7 +6,7 @@ void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 void Player::move(Side side) {
     this->side = side;
-    texture.loadFromMemory(player_png, player_png_len, setIntRect(side));
+    sprite.setTextureRect(setIntRect(side));
     switch(side) {
     case Up:
         sprite.move(0, -velocity * PIXELS_PER_UNIT);
@@ -31,11 +31,16 @@ sf::Vector2<units> Player::getPosition() {
     return position;
 }
 
-void Player::setPositionAndSide(units x, units y, Side side) {
+void Player::setPosition(units x, units y) {
     position.x = x;
     position.y = y;
 
-    texture.loadFromMemory(player_png, player_png_len, setIntRect(side));
+    texture.loadFromMemory(player_png, player_png_len);
     sprite.setTexture(texture);
+    sprite.setTextureRect(setIntRect(side));
     sprite.setPosition(x * PIXELS_PER_UNIT, y * PIXELS_PER_UNIT);
+}
+
+void Player::setSide(Side side) {
+    sprite.setTextureRect(setIntRect(side));
 }
