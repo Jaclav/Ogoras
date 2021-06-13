@@ -63,17 +63,18 @@ void draw(sf::RenderWindow &window, std::vector<sf::Drawable*>&toDraw) {
     return;
 }
 
-void loadTexture(sf::Texture &texture, std::string pathToFile) {
+void loadTexture(sf::Texture &texture, std::string path) {
     //load and set texture
-    std::ifstream file(pathToFile, std::ios::in);
-    if(file.good())
-        texture.loadFromFile(pathToFile);
+    //fstream doesn't work on wine
+    if(FILE *file = fopen(path.c_str(), "r")){
+        texture.loadFromFile(path);
+        fclose(file);
+    }
     else {
         texture.loadFromMemory(notFound_png, notFound_png_len);
         texture.setRepeated(true);
-        Console::pushMessage("Cannot load " + pathToFile);
+        Console::pushMessage("Cannot load " + path);
     }
-    file.close();
 }
 
 bool isMouseCovering(sf::Vector2f position, sf::Vector2f size) {
