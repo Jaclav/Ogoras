@@ -10,11 +10,7 @@ add_compile_options(-Wall -Wextra -pedantic -std=c++11 -Os -s)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
-if (WIN32)
-	file(GLOB SOURCES src/*.cpp lib/inicpp/Ini.cpp)
-else()
-	file(GLOB SOURCES src/*.cpp lib/inicpp/Ini.cpp)
-endif(WIN32)
+file(GLOB SOURCES src/*.cpp lib/inicpp/Ini.cpp)
 
 add_executable(Ogoras ${SOURCES})
 
