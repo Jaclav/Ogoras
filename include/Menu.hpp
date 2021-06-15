@@ -11,7 +11,6 @@
 #include "tools.hpp"
 #include "version.hpp"
 
-#include "../resources/backgrounds/startBackground.png.hpp"
 #include "../resources/DejaVuSans.ttf.hpp"
 
 extern sf::Font font;

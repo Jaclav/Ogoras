@@ -10,8 +10,7 @@ Menu::Menu(sf::RenderWindow &window) {
     subText.setCharacterSize(window.getSize().x / 35);
     setDefault(window);
 
-    if(!backgroundT.loadFromMemory(startBackground_png, startBackground_png_len))
-        exit(-1);
+    loadTexture(backgroundT, "data/menuBackground.png");
     background.setTexture(backgroundT);
     background.setScale(window.getSize().x / background.getLocalBounds().width,
                         window.getSize().y / background.getLocalBounds().height);
