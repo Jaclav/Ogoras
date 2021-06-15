@@ -5,21 +5,25 @@
 #include <SFML/Graphics/Sprite.hpp>
 
 #include "Entity.hpp"
+#include "inicpp/Ini.hpp"
 #include "tools.hpp"
 
 class Player : public Entity {
 public:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+    void load(std::string path);
     void move(Side side);
 
     sf::Vector2<units> getPosition();
     void setPosition(units x, units y);
     void setSide(Side side);
 
+
 private:
     Side side = Side::Down;
     u_char velocity = 1;
     sf::Vector2<units> position;
+    Ini config;
 
     sf::Texture texture;
     sf::Sprite sprite;

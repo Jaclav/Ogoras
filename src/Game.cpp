@@ -49,13 +49,8 @@ void Game::load(uint number, sf::Vector2u windowSize) {
     std::string path = "data/lvl" + std::to_string(number) + "/";
     config.setPath(path + "config.ini");
 
-    //map
     map.load(path);
-
-    //player
-    player.setPosition(config.readInt("Player", "x", 0),
-                       config.readInt("Player", "y", 0));
-    player.setSide((Npc::Side)config.readString("Player", "s", "D")[0]);
+    player.load(path);
 
     //background
     loadTexture(backgroundT, path + "map.png");
