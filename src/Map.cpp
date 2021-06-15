@@ -35,9 +35,7 @@ void Map::load(std::string path) {
     config.setPath(path + "npc.ini");
     npc.clear();
     std::string name = "";
-    uint quiantity = config.readInt("Npc", "quantity", 0);
-    if(quiantity == 0)
-        return;
+    uint quiantity = config.getNumberOfSections();
     npc.reserve(quiantity);
 
     for(uint i = 0; i < quiantity; i++) {
