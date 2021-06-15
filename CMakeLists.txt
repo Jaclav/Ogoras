@@ -11,7 +11,7 @@ add_compile_options(-Wall -Wextra -pedantic -std=c++11 -Os -s)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 if (WIN32)
-	file(GLOB SOURCES main.rc src/*.cpp lib/inicpp/Ini.cpp)
+	file(GLOB SOURCES src/*.cpp lib/inicpp/Ini.cpp)
 else()
 	file(GLOB SOURCES src/*.cpp lib/inicpp/Ini.cpp)
 endif(WIN32)
