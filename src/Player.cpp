@@ -35,7 +35,7 @@ void Player::setPosition(units x, units y) {
     position.x = x;
     position.y = y;
 
-    texture.loadFromMemory(player_png, player_png_len);
+    loadTexture(texture, "data/characters/player.png");
     sprite.setTexture(texture);
     sprite.setTextureRect(setIntRect(side));
     sprite.setPosition(x * PIXELS_PER_UNIT, y * PIXELS_PER_UNIT);

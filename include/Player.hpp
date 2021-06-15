@@ -7,8 +7,6 @@
 #include "Entity.hpp"
 #include "tools.hpp"
 
-#include "../resources/player.png.hpp"
-
 class Player : public Entity {
 public:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
