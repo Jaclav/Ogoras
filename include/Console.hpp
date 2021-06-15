@@ -6,9 +6,7 @@
 #include <vector>
 
 #include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Graphics/Shader.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Clipboard.hpp>
 #include <SFML/Window/Event.hpp>

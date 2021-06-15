@@ -40,9 +40,7 @@ Game::Game(sf::RenderWindow &window) : console(window.getSize()) {
         }
         window.clear();
         draw(window, toDraw);
-        for(uint i = 0; i < npc.size(); i++) {
-            window.draw(npc[i]);
-        }
+
         window.display();
     }
 }
@@ -52,29 +50,15 @@ void Game::load(uint number, sf::Vector2u windowSize) {
     config.setPath(path + "config.ini");
 
     //map
-    map.load(path + "map.lvl");
+    map.load(path);
 
     //player
     player.setPosition(config.readInt("Player", "x", 0),
                        config.readInt("Player", "y", 0));
     player.setSide((Npc::Side)config.readString("Player", "s", "D")[0]);
 
-    //npc
-    config.setPath(path + "npc.ini");
-    npc.clear();
-    std::string name = "";
-    uint quiantity = config.readInt("Npc", "quantity", 0);
-    if(quiantity == 0)
-        return;
-    npc.reserve(quiantity);
-
-    for(uint i = 0; i < quiantity; i++) {
-        npc.push_back(Npc(i, path + "npc.ini"));//Allocate number to Npc and give path with config file
-    }
-
     //background
-    if(!backgroundT.loadFromFile(path + "map.png"))
-        exit(0);
+    loadTexture(backgroundT, path + "map.png");
     background.setTexture(backgroundT);
     background.setScale(windowSize.x / background.getLocalBounds().width,
                         windowSize.y / background.getLocalBounds().height);

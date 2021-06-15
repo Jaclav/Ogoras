@@ -7,7 +7,6 @@
 
 #include "Console.hpp"
 #include "Map.hpp"
-#include "Npc.hpp"
 #include "inicpp/Ini.hpp"
 #include "Player.hpp"
 #include "tools.hpp"
@@ -23,7 +22,6 @@ private:
     Ini config;
     Map map;
     Player player;
-    std::vector<Npc>npc;
     void load(uint number, sf::Vector2u windowSize);
 
     sf::Texture backgroundT;

@@ -8,6 +8,8 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
+#include "inicpp/Ini.hpp"
+#include "Npc.hpp"
 #include "tools.hpp"
 
 class Map : public sf::Drawable {
@@ -20,7 +22,10 @@ public:
     void load(std::string path);
     bool shouldMove(sf::Vector2<units> position);
 private:
+    Ini config;
+
     std::vector<std::vector<Blocks>>map;
+    std::vector<Npc>npc;
 
     sf::Sprite sprite;
     sf::Texture texture;

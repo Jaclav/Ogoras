@@ -64,7 +64,6 @@ void draw(sf::RenderWindow &window, std::vector<sf::Drawable*>&toDraw) {
 }
 
 void loadTexture(sf::Texture &texture, std::string path) {
-    //load and set texture
     //fstream doesn't work on wine
     if(FILE *file = fopen(path.c_str(), "r")){
         texture.loadFromFile(path);
