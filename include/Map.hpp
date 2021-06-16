@@ -25,10 +25,12 @@ private:
     Ini config;
 
     std::vector<std::vector<Blocks>>map;
-    std::vector<Npc>npc;
+    std::vector<sf::Vector2i>blockPositionInFile;
 
-    sf::Sprite sprite;
+    mutable sf::Sprite sprite;
     sf::Texture texture;
+
+    std::vector<Npc>npc;
 };
 
 #endif //MAP_HPP
