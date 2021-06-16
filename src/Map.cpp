@@ -14,7 +14,6 @@ void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const {
                 sprite.setTextureRect(sf::IntRect(sf::Vector2i(blockPositionInFile[map[y][x]]), sf::Vector2i(128, 128)));
                 sprite.setPosition(x * PIXELS_PER_UNIT, y * PIXELS_PER_UNIT);
                 target.draw(sprite, states);
-                Console::pushMessage(std::to_string(map[y][x]));
             }
         }
     }
@@ -28,6 +27,10 @@ void Map::load(std::string path) {
     //textures of blocks
     config.setPath(path + "blocks.ini");
     uint quantity = config.getNumberOfSections();
+    if(quantity > 253) {
+        Console::pushMessage("Too many blocks! Maximum is 253.");
+        quantity = 253;
+    }
     blockPositionInFile.clear();
 
     for(uint i = 2; i < quantity + 2; i++) {
