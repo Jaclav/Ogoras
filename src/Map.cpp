@@ -1,7 +1,7 @@
 #include "Map.hpp"
 
 Map::Map() {
-    blockPositionInFile.reserve(255);
+    blocksProperties.reserve(255);
 
     loadTexture(texture, "data/blocks.png");
     sprite.setTexture(texture);
@@ -11,7 +11,7 @@ void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     for(uint y = 0; y < map.size(); y++) {
         for(uint x = 0; x < map[0].size(); x++) {
             if(map[y][x] != 0 && map[y][x] != 1) {
-                sprite.setTextureRect(sf::IntRect(sf::Vector2i(blockPositionInFile[map[y][x]]), sf::Vector2i(128, 128)));
+                sprite.setTextureRect(sf::IntRect(blocksProperties[map[y][x]].imageX, blocksProperties[map[y][x]].imageY, 128, 128));
                 sprite.setPosition(x * PIXELS_PER_UNIT, y * PIXELS_PER_UNIT);
                 target.draw(sprite, states);
             }
@@ -27,27 +27,28 @@ void Map::load(std::string path) {
     //textures of blocks
     config.setPath(path + "blocks.ini");
     uint quantity = config.getNumberOfSections();
-    if(quantity > 253) {
-        Console::pushMessage("Too many blocks! Maximum is 253.");
-        quantity = 253;
+    if(quantity > 254) {
+        Console::pushMessage("Too many blocks! Maximum is 254.");
+        quantity = 254;
     }
-    blockPositionInFile.clear();
+    blocksProperties.clear();
 
     for(uint i = 2; i < quantity + 2; i++) {
-        blockPositionInFile[i].x = config.readInt("Block" + std::to_string(i), "x", 0);
-        blockPositionInFile[i].y = config.readInt("Block" + std::to_string(i), "y", 0);
+        blocksProperties[i].imageX = config.readInt("Block" + std::to_string(i), "x", 0);
+        blocksProperties[i].imageY = config.readInt("Block" + std::to_string(i), "y", 0);
+        blocksProperties[i].solid = config.readInt("Block" + std::to_string(i), "solid", true);
     }
 
     //blocks
     std::ifstream file(path + "map.lvl");
     std::string line;
 
-    std::vector<Blocks>tmp;
+    std::vector<Block>tmp;
     map.clear();
 
     while(std::getline(file, line)) {
         for(uint x = 0; x < line.size(); x++) {
-            tmp.push_back((Map::Blocks)line[x]);
+            tmp.push_back((Block)line[x]);
         }
         map.push_back(tmp);
         tmp.clear();
@@ -71,6 +72,9 @@ bool Map::shouldMove(sf::Vector2<units> position) {
         return false;
     }
     if(Console::getSettings().noclip) {
+        return true;
+    }
+    if(blocksProperties[map[position.y][position.x]].solid == false) {
         return true;
     }
 

@@ -16,16 +16,21 @@ class Map : public sf::Drawable {
 public:
     Map();
 
-    enum Blocks {Air = 0, Border = 1};
-
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
     void load(std::string path);
     bool shouldMove(sf::Vector2<units> position);
 private:
     Ini config;
 
-    std::vector<std::vector<Blocks>>map;
-    std::vector<sf::Vector2i>blockPositionInFile;
+    typedef unsigned char Block;
+    const Block Air = 0;
+    std::vector<std::vector<Block>>map;
+
+    struct BlockProperties {
+        units imageX, imageY;
+        bool solid;
+    };
+    std::vector<BlockProperties>blocksProperties;
 
     mutable sf::Sprite sprite;
     sf::Texture texture;
