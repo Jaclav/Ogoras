@@ -10,7 +10,7 @@ Map::Map() {
 void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     for(uint y = 0; y < map.size(); y++) {
         for(uint x = 0; x < map[0].size(); x++) {
-            if(map[y][x] != 0 && map[y][x] != 1) {
+            if(map[y][x] != 0) {
                 sprite.setTextureRect(sf::IntRect(blocksProperties[map[y][x]].imageX, blocksProperties[map[y][x]].imageY, 128, 128));
                 sprite.setPosition(x * PIXELS_PER_UNIT, y * PIXELS_PER_UNIT);
 
@@ -38,13 +38,13 @@ void Map::load(std::string path) {
     //textures of blocks
     config.setPath(path + "blocks.ini");
     uint quantity = config.getNumberOfSections();
-    if(quantity > 254) {
-        Console::pushMessage("Too many blocks! Maximum is 254.");
-        quantity = 254;
+    if(quantity > 255) {
+        Console::pushMessage("Too many blocks! Maximum is 255.");
+        quantity = 255;
     }
     blocksProperties.clear();
 
-    for(uint i = 2; i < quantity + 2; i++) {
+    for(uint i = 1; i < quantity + 2; i++) {
         blocksProperties[i].imageX = config.readInt("Block" + std::to_string(i), "x", 0);
         blocksProperties[i].imageY = config.readInt("Block" + std::to_string(i), "y", 0);
         blocksProperties[i].solid = config.readInt("Block" + std::to_string(i), "solid", true);
