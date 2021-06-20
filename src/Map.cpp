@@ -13,6 +13,17 @@ void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const {
             if(map[y][x] != 0 && map[y][x] != 1) {
                 sprite.setTextureRect(sf::IntRect(blocksProperties[map[y][x]].imageX, blocksProperties[map[y][x]].imageY, 128, 128));
                 sprite.setPosition(x * PIXELS_PER_UNIT, y * PIXELS_PER_UNIT);
+
+                if(blocksProperties[map[y][x]].rotation != 0) {
+                    sprite.setOrigin(64, 64);
+                    sprite.move(64, 64);
+                    sprite.setRotation(blocksProperties[map[y][x]].rotation);
+
+                    target.draw(sprite, states);
+                    sprite.setRotation(0);
+                    sprite.setOrigin(0, 0);
+                    continue;
+                }
                 target.draw(sprite, states);
             }
         }
@@ -37,6 +48,7 @@ void Map::load(std::string path) {
         blocksProperties[i].imageX = config.readInt("Block" + std::to_string(i), "x", 0);
         blocksProperties[i].imageY = config.readInt("Block" + std::to_string(i), "y", 0);
         blocksProperties[i].solid = config.readInt("Block" + std::to_string(i), "solid", true);
+        blocksProperties[i].rotation = config.readInt("Block" + std::to_string(i), "rotation", 0);
     }
 
     //blocks

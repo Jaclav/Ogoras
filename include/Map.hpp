@@ -29,6 +29,7 @@ private:
     struct BlockProperties {
         units imageX, imageY;
         bool solid;
+        int rotation;
     };
     std::vector<BlockProperties>blocksProperties;
 
