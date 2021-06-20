@@ -76,17 +76,6 @@ void loadTexture(sf::Texture &texture, std::string path) {
     }
 }
 
-bool isMouseCovering(sf::Vector2f position, sf::Vector2f size) {
-    if(sf::Mouse::getPosition().x >= position.x &&
-            sf::Mouse::getPosition().x <= position.x + size.x &&
-            sf::Mouse::getPosition().y >= position.y &&
-            sf::Mouse::getPosition().y <= position.y + size.y) {
-        return true;
-    }
-    else
-        return false;
-}
-
 void setAndAlignText(sf::Text &text, std::wstring str, u_int windowWidth, u_int posY) {
     text.setString(str);
     text.setPosition(windowWidth / 2 - text.getLocalBounds().width / 2, posY);

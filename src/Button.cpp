@@ -36,5 +36,5 @@ void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 bool Button::isCovering() const {
-    return isMouseCovering(rect.getPosition(), rect.getSize());
+    return rect.getGlobalBounds().contains(sf::Mouse::getPosition().x, sf::Mouse::getPosition().y);
 }
