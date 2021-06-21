@@ -2,7 +2,7 @@
 
 Game::Game(sf::RenderWindow &window) : console(window.getSize()) {
     std::vector<sf::Drawable*>toDraw = {&background, &map, &player, &console};
-    load(0, window.getSize());
+    load("lvl0", window.getSize());
     Console::pushMessage("Game loaded");
 
     while(window.isOpen()) {
@@ -45,8 +45,8 @@ Game::Game(sf::RenderWindow &window) : console(window.getSize()) {
     }
 }
 
-void Game::load(uint number, sf::Vector2u windowSize) {
-    std::string path = "data/lvl" + std::to_string(number) + "/";
+void Game::load(std::string levelName, sf::Vector2u windowSize) {
+    std::string path = "data/" + levelName + "/";
     config.setPath(path + "config.ini");
 
     map.load(path);
