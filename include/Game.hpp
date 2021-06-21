@@ -22,7 +22,8 @@ private:
     Ini config;
     Map map;
     Player player;
-    void load(std::string levelName, sf::Vector2u windowSize);
+    const sf::RenderWindow *window;
+    void load(std::string levelName);
 
     sf::Texture backgroundT;
     sf::Sprite background;

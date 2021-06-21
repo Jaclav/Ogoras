@@ -1,8 +1,9 @@
 #include "Game.hpp"
 
 Game::Game(sf::RenderWindow &window) : console(window.getSize()) {
+    this->window = &window;
     std::vector<sf::Drawable*>toDraw = {&background, &map, &player, &console};
-    load("lvl0", window.getSize());
+    load("lvl0");
     Console::pushMessage("Game loaded");
 
     while(window.isOpen()) {
@@ -45,7 +46,7 @@ Game::Game(sf::RenderWindow &window) : console(window.getSize()) {
     }
 }
 
-void Game::load(std::string levelName, sf::Vector2u windowSize) {
+void Game::load(std::string levelName) {
     std::string path = "data/" + levelName + "/";
     config.setPath(path + "config.ini");
 
@@ -55,6 +56,6 @@ void Game::load(std::string levelName, sf::Vector2u windowSize) {
     //background
     loadTexture(backgroundT, path + "map.png");
     background.setTexture(backgroundT);
-    background.setScale(windowSize.x / background.getLocalBounds().width,
-                        windowSize.y / background.getLocalBounds().height);
+    background.setScale(window->getSize().x / background.getLocalBounds().width,
+                        window->getSize().y / background.getLocalBounds().height);
 }
