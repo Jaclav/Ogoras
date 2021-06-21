@@ -26,14 +26,14 @@ public:
     static Settings settings;
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
-    void handleEvent(sf::Event &event);
-    void static pushMessage(std::string message);
+    static void handleEvent(sf::Event &event);
+    static void pushMessage(std::string message);
 
     static Settings getSettings();
     static void interpret(std::string command);
 
 private:
-    bool activated = false;
+    static bool activated;
 
     static sf::RectangleShape background;
 

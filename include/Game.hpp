@@ -18,7 +18,6 @@ public:
 private:
     sf::Event event;
 
-    Console console;
     Ini config;
     Map map;
     Player player;

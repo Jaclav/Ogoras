@@ -2,6 +2,8 @@
 
 Console::Settings Console::settings = {};
 
+bool Console::activated = false;
+
 sf::RectangleShape Console::background;
 
 std::string Console::typedString = "";

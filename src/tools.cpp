@@ -38,6 +38,7 @@ void defaultEvents(sf::RenderWindow &window, sf::Event event) {
     else if(event.type == event.Closed) {
         window.close();
     }
+    Console::handleEvent(event);
 }
 
 void draw(sf::RenderWindow &window, std::vector<sf::Drawable*>&toDraw) {
@@ -60,12 +61,17 @@ void draw(sf::RenderWindow &window, std::vector<sf::Drawable*>&toDraw) {
     if(showFpsCounter) {
         window.draw(fpsText);
     }
+
+    //Console
+    static Console console(window.getSize());
+    window.draw(console);
+
     return;
 }
 
 void loadTexture(sf::Texture &texture, std::string path) {
     //fstream doesn't work on wine
-    if(FILE *file = fopen(path.c_str(), "r")){
+    if(FILE *file = fopen(path.c_str(), "r")) {
         texture.loadFromFile(path);
         fclose(file);
     }

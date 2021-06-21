@@ -1,8 +1,8 @@
 #include "Game.hpp"
 
-Game::Game(sf::RenderWindow &window) : console(window.getSize()) {
+Game::Game(sf::RenderWindow &window) {
     this->window = &window;
-    std::vector<sf::Drawable*>toDraw = {&background, &map, &player, &console};
+    std::vector<sf::Drawable*>toDraw = {&background, &map, &player};
     load("lvl0");
     Console::pushMessage("Game loaded");
 
@@ -37,7 +37,6 @@ Game::Game(sf::RenderWindow &window) : console(window.getSize()) {
                     player.setSide(Player::Side::Left);//set side after antagonist move
                 }
             }
-            console.handleEvent(event);
         }
         window.clear();
         draw(window, toDraw);
