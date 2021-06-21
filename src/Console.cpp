@@ -5,6 +5,7 @@ Console::Settings Console::settings = {};
 
 bool Console::activated = false;
 Game *Console::game = nullptr;
+Player *Console::player = nullptr;
 
 sf::RectangleShape Console::background;
 
@@ -91,15 +92,18 @@ Console::Settings Console::getSettings() {
     return settings;
 }
 
-void Console::setGame(Game *game) {
+void Console::setHandles(Game *game, Player *player) {
     Console::game = game;
+    Console::player = player;
 }
 
 void Console::interpret(std::string command) {
     std::string cmd = command.substr(0, command.find(" "));
-    int p1 = 0;
+    int p1 = 0, p2 = 0;
     try {
-        p1 = std::stoi(command.substr(command.find(" "), command.find_last_of(" ")));
+        command = command.substr(command.find(" "));
+        p1 = std::stoi(command.substr(command.find(" ")));
+        p2 = std::stoi(command.substr(command.find(" "), command.find_last_of(" ")));
     }
     catch(...) {}
     if(cmd == "noclip") {
@@ -112,6 +116,9 @@ void Console::interpret(std::string command) {
     }
     else if(cmd == "load") {
         game->load(command.substr(command.find(" ") + 1, command.find_last_of(" ") + 1));
+    }
+    else if(cmd == "tp") {
+        player->setPosition(p1, p2);
     }
     else {
         pushMessage("Command not found!");

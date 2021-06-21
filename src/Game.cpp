@@ -5,7 +5,7 @@ Game::Game(sf::RenderWindow &window) {
     std::vector<sf::Drawable*>toDraw = {&background, &map, &player};
     load("lvl0");
     Console::pushMessage("Game loaded");
-    Console::setGame(this);
+    Console::setHandles(this, &player);
 
     while(window.isOpen()) {
         while(window.pollEvent(event)) {

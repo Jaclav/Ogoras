@@ -13,6 +13,7 @@
 
 extern sf::Font font;
 class Game;
+class Player;
 
 class Console : public sf::Drawable {
 public:
@@ -29,12 +30,13 @@ public:
     static void pushMessage(std::string message);
 
     static Settings getSettings();
-    static void setGame(Game *game);
+    static void setHandles(Game *game, Player *player);
     static void interpret(std::string command);
 
 private:
     static bool activated;
     static Game *game;
+    static Player *player;
 
     static sf::RectangleShape background;
 
