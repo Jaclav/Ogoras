@@ -14,6 +14,7 @@
 class Game {
 public:
     Game(sf::RenderWindow &window);
+    void load(std::string levelName);
 
 private:
     sf::Event event;
@@ -22,7 +23,6 @@ private:
     Map map;
     Player player;
     const sf::RenderWindow *window;
-    void load(std::string levelName);
 
     sf::Texture backgroundT;
     sf::Sprite background;

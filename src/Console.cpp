@@ -1,8 +1,10 @@
 #include "Console.hpp"
+#include "Game.hpp"
 
 Console::Settings Console::settings = {};
 
 bool Console::activated = false;
+Game *Console::game = nullptr;
 
 sf::RectangleShape Console::background;
 
@@ -89,6 +91,10 @@ Console::Settings Console::getSettings() {
     return settings;
 }
 
+void Console::setGame(Game *game) {
+    Console::game = game;
+}
+
 void Console::interpret(std::string command) {
     std::string cmd = command.substr(0, command.find(" "));
     int p1 = 0;
@@ -103,6 +109,9 @@ void Console::interpret(std::string command) {
     else if(cmd == "clear") {
         previousString = "";
         previousText.setString(previousString);
+    }
+    else if(cmd == "load") {
+        game->load(command.substr(command.find(" ") + 1, command.find_last_of(" ") + 1));
     }
     else {
         pushMessage("Command not found!");
