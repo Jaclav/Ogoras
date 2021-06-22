@@ -58,7 +58,9 @@ void Console::handleEvent(sf::Event &event) {
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::V) && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
             typedString = sf::Clipboard::getString();
-
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::C) && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
+            sf::Clipboard::setString(previousString);
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
             interpret(typedString);
