@@ -24,10 +24,8 @@ int main() {
     Menu menu(window);
     while(window.isOpen()) {
         menu.start(window);
-        if(menu.shouldPlay) {
+        if(window.isOpen())
             Game game(window);
-            menu.shouldPlay = false;
-        }
     }
     return 0;
 }

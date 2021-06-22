@@ -22,7 +22,6 @@ public:
     void start(sf::RenderWindow &window);
     void stop(sf::RenderWindow &window);
 
-    bool shouldPlay = false;
 private:
     enum Returned {Back, Play};
     Returned play(sf::RenderWindow &window);

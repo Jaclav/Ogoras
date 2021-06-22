@@ -24,9 +24,7 @@ void Menu::setDefault(sf::RenderWindow &window) {
 
 void Menu::start(sf::RenderWindow &window) {
     Button backButton((window.getSize().x - 500) / 2, window.getSize().y / 1.2, 500, 100, "Back", [&]() {});
-    Button playButton(window.getSize().x / 8, window.getSize().y / 3, 500, 100, "Play", [&]() {
-        shouldPlay = true;
-    });
+    Button playButton(window.getSize().x / 8, window.getSize().y / 3, 500, 100, "Play", [&]() {});
     Button settingsButton(window.getSize().x / 8, window.getSize().y / 3 + 125, 500, 100, "Settings", [&]() {
         setAndAlignText(mainText, L"Settings", window.getSize().x, 100);
 
@@ -75,9 +73,12 @@ void Menu::start(sf::RenderWindow &window) {
 
     std::vector<sf::Drawable*> toDraw{&background, &playButton, &settingsButton, &creditsButton, &quitButton, &mainText, &subText};
 
-    while(window.isOpen() && !shouldPlay) {
+    while(window.isOpen()) {
         while(window.pollEvent(event)) {
             defaultEvents(window, event);
+            if(playButton.isCovering() && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                return;
+            }
         }
         window.clear();
         draw(window, toDraw);
