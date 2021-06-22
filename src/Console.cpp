@@ -103,7 +103,7 @@ void Console::interpret(std::string command) {
     try {
         command = command.substr(command.find(" "));
         p1 = std::stoi(command.substr(command.find(" ")));
-        p2 = std::stoi(command.substr(command.find(" "), command.find_last_of(" ")));
+        p2 = std::stoi(command.substr(command.find_last_of(" ")));
     }
     catch(...) {}
     if(cmd == "noclip") {
@@ -115,10 +115,15 @@ void Console::interpret(std::string command) {
         previousText.setString(previousString);
     }
     else if(cmd == "load") {
-        game->load(command.substr(command.find(" ") + 1, command.find_last_of(" ") + 1));
+        game->load(command.substr(command.find(" ") + 1));
+        pushMessage("Level loaded");
     }
     else if(cmd == "tp") {
         player->setPosition(p1, p2);
+        pushMessage("Player teleported at" + command);
+    }
+    else if(cmd == "position") {
+        pushMessage("Player position is " + std::to_string(player->getPosition().x) + " " + std::to_string(player->getPosition().y));
     }
     else {
         pushMessage("Command not found!");

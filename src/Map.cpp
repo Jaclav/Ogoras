@@ -38,17 +38,19 @@ void Map::load(std::string path) {
     //textures of blocks
     config.setPath(path + "blocks.ini");
     uint quantity = config.getNumberOfSections();
-    if(quantity > 255) {
-        Console::pushMessage("Too many blocks! Maximum is 255.");
-        quantity = 255;
+    if(quantity > 254) {
+        Console::pushMessage("Too many blocks! Maximum is 254.");
+        quantity = 254;
     }
     blocksProperties.clear();
 
-    for(uint i = 1; i < quantity + 2; i++) {
-        blocksProperties[i].imageX = config.readInt("Block" + std::to_string(i), "x", 0);
-        blocksProperties[i].imageY = config.readInt("Block" + std::to_string(i), "y", 0);
-        blocksProperties[i].solid = config.readInt("Block" + std::to_string(i), "solid", true);
-        blocksProperties[i].rotation = config.readInt("Block" + std::to_string(i), "rotation", 0);
+    for(uint i = 0; i <= quantity; i++) {
+        BlockProperties blockProperties{(units)config.readInt("Block" + std::to_string(i), "x", 0),
+                                        (units)config.readInt("Block" + std::to_string(i), "y", 0),
+                                        (bool)config.readInt("Block" + std::to_string(i), "solid", true),
+                                        config.readInt("Block" + std::to_string(i), "rotation", 0),
+                                        config.readString("Block" + std::to_string(i), "command", "NULL")};
+        blocksProperties.push_back(blockProperties);
     }
 
     //blocks
@@ -58,7 +60,7 @@ void Map::load(std::string path) {
     std::vector<Block>tmp;
     map.clear();
 
-    while(std::getline(file, line)) {
+    while(std::getline(file, line, (char)0xff)) {
         for(uint x = 0; x < line.size(); x++) {
             tmp.push_back((Block)line[x]);
         }
@@ -83,9 +85,16 @@ bool Map::shouldMove(sf::Vector2<units> position) {
         Console::pushMessage("Reference to nonexisting map's memory!");
         return false;
     }
+
+    if(blocksProperties[map[position.y][position.x]].command != "NULL") {
+        Console::interpret(blocksProperties[map[position.y][position.x]].command);
+        return true;
+    }
+
     if(Console::getSettings().noclip) {
         return true;
     }
+
     if(blocksProperties[map[position.y][position.x]].solid == false) {
         return true;
     }
@@ -93,5 +102,6 @@ bool Map::shouldMove(sf::Vector2<units> position) {
     if(map[position.y][position.x] == Air) {
         return true;
     }
+
     return false;
 }

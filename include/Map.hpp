@@ -30,6 +30,7 @@ private:
         units imageX, imageY;
         bool solid;
         int rotation;
+        std::string command;
     };
     std::vector<BlockProperties>blocksProperties;
 
