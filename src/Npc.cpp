@@ -1,10 +1,10 @@
 #include "Npc.hpp"
 
-Npc::Npc(const Npc &other) : name(other.name), texture(other.texture), sprite(other.sprite), side(other.side), description(other.description) {
+Npc::Npc(const Npc &other) : name(other.name), path(other.path), position(other.position), texture(other.texture), sprite(other.sprite), description(other.description), message(other.message), side(other.side) {
     sprite.setTexture(texture);
 }
 
-Npc::Npc(int number, std::string path) {
+Npc::Npc(int number, std::string path) : message() {
     config.setPath(path);
     name = config.readString("Npc" + std::to_string(number), "name", "NULL");
     if(name == "NULL")
@@ -28,14 +28,23 @@ Npc::Npc(int number, std::string path) {
     description.setString(name);
     description.setCharacterSize(16);
     description.setOutlineThickness(2);
+
+    message.setString(config.readString("Npc" + std::to_string(number), "message", "Hey!"));
 }
 
 void Npc::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(sprite, states);
     description.setPosition(sprite.getPosition().x + (sprite.getLocalBounds().width - description.getLocalBounds().width) / 2, sprite.getPosition().y - description.getLocalBounds().height);
     target.draw(description, states);
+    target.draw(message, states);
 }
 
-void Npc::touch() {
-    //TODO add in touch dialogs
+sf::Vector2<units> Npc::getPosition() {
+    return position;
+}
+
+void Npc::touched() {
+    Console::pushMessage("touched");
+    message.setPosition(position);
+    message.trigger();
 }

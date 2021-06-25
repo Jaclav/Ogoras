@@ -28,14 +28,16 @@ void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const {
             }
         }
     }
+}
 
+void Map::drawNpcs(sf::RenderTarget &target, sf::RenderStates states) const {
     for(uint i = 0; i < npc.size(); i++) {
         target.draw(npc[i], states);
     }
 }
 
 void Map::load(std::string path) {
-    //textures of blocks
+    //blocks properties
     config.setPath(path + "blocks.ini");
     uint quantity = config.getNumberOfSections();
     if(quantity > 254) {
@@ -89,6 +91,13 @@ bool Map::shouldMove(sf::Vector2<units> position) {
     if(blocksProperties[map[position.y][position.x]].command != "NULL") {
         Console::interpret(blocksProperties[map[position.y][position.x]].command);
         return true;
+    }
+
+    for(uint i = 0; i < npc.size(); i++) {
+        if(npc[i].getPosition() == position) {
+            npc[i].touched();
+            return false;
+        }
     }
 
     if(Console::getSettings().noclip) {

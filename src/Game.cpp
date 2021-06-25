@@ -41,6 +41,7 @@ Game::Game(sf::RenderWindow &window) {
         }
         window.clear();
         draw(window, toDraw);
+        map.drawNpcs(window, sf::RenderStates());
 
         window.display();
     }

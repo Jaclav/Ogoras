@@ -8,6 +8,7 @@
 #include <SFML/Graphics/Texture.hpp>
 
 #include "Entity.hpp"
+#include "Message.hpp"
 #include "inicpp/Ini.hpp"
 #include "tools.hpp"
 
@@ -21,19 +22,20 @@ public:
     Npc(int number, std::string path);
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-    void touch();
+    sf::Vector2<units> getPosition();
+    void touched();
 private:
     std::string name;
     std::string path;
+    sf::Vector2<units> position;
 
     Ini config;
 
     sf::Texture texture;
     sf::Sprite sprite;
-    Side side;
-    sf::Vector2<units> position;
-
     mutable sf::Text description;
+    Message message;
+    Side side;
 };
 
 #endif //NPC_HPP

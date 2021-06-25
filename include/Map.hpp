@@ -17,6 +17,8 @@ public:
     Map();
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+    void drawNpcs(sf::RenderTarget &target, sf::RenderStates states) const;
+
     void load(std::string path);
     bool shouldMove(sf::Vector2<units> position);
 private:
