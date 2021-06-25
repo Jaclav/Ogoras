@@ -18,13 +18,16 @@ public:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void setPosition(sf::Vector2<units> position);
     void setString(std::string string);
+    void setTime(sf::Time time);
     void trigger();
 
 private:
-    bool activated = false;
+    mutable bool activated = false;
+    sf::Time time;
+    sf::Clock clock;
+
     sf::Texture texture;
     sf::Sprite sprite;
-
     sf::Text text;
 };
 #endif //MESSAGE_HPP

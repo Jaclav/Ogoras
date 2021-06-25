@@ -29,7 +29,6 @@ private:
     std::string name;
     sf::Vector2<units> position;
 
-
     sf::Texture texture;
     sf::Sprite sprite;
     Side side;

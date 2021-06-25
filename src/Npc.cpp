@@ -5,34 +5,33 @@ Npc::Npc(const Npc &other) : name(other.name), position(other.position),
     sprite.setTexture(texture);
 }
 
-Npc::Npc(int number, std::string path) {
+Npc::Npc(int number, std::string path) : description("", font, 16) {
     config.setPath(path);
     name = config.readString("Npc" + std::to_string(number), "name", "NULL");
     if(name == "NULL")
         std::cerr << "NPC" << number << " name is NULL!\n";
+    std::string sectionName = "Npc" + std::to_string(number);
 
     //load position
-    position.x = config.readInt("Npc" + std::to_string(number), "x", 0);
-    position.y = config.readInt("Npc" + std::to_string(number), "y", 0);
+    position.x = config.readInt(sectionName, "x", 0);
+    position.y = config.readInt(sectionName, "y", 0);
 
     //load side
-    side = (Npc::Side)config.readString("Npc" + std::to_string(number), "s", "D")[0];
+    side = (Npc::Side)config.readString(sectionName, "s", "D")[0];
     this->side = side;
 
     //load texture and sprite
-    loadTexture(texture, config.readString("Npc" + std::to_string(number), "src", "NPC" + std::to_string(number)));
+    loadTexture(texture, config.readString(sectionName, "src", sectionName));
     sprite.setTexture(texture);
     sprite.setTextureRect(setIntRect(side));
     sprite.setPosition(position.x * PIXELS_PER_UNIT, position.y * PIXELS_PER_UNIT);
 
     //set description
-    description.setFont(font);
-    description.setString(name);
-    description.setCharacterSize(16);
     description.setOutlineThickness(2);
 
     //set message
-    message.setString(config.readString("Npc" + std::to_string(number), "message", "Hey!"));
+    message.setString(config.readString(sectionName, "message", "Hey!"));
+    message.setTime(sf::milliseconds((sf::Int32)config.readInt(sectionName, "messageTime", 2000)));
 }
 
 void Npc::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -47,7 +46,6 @@ sf::Vector2<units> Npc::getPosition() {
 }
 
 void Npc::touched() {
-    Console::pushMessage("touched");
     message.setPosition(position);
     message.trigger();
 }

@@ -7,11 +7,14 @@ Message::Message() : text("", font) {
     text.setFillColor(sf::Color::Black);
 }
 
-Message::Message(const Message &other) : texture(other.texture), sprite(other.sprite), text(other.text) {
+Message::Message(const Message &other) : time(other.time), texture(other.texture), sprite(other.sprite), text(other.text) {
     sprite.setTexture(texture);
 }
 
 void Message::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    if(clock.getElapsedTime().asMilliseconds() > time.asMilliseconds()) {
+        activated = false;
+    }
     if(activated) {
         target.draw(sprite, states);
         target.draw(text, states);
@@ -33,4 +36,9 @@ void Message::setString(std::string string) {
 
 void Message::trigger() {
     activated = true;
+    clock.restart();
+}
+
+void Message::setTime(sf::Time time) {
+    this->time = time;
 }
