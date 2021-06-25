@@ -1,10 +1,11 @@
 #include "Npc.hpp"
 
-Npc::Npc(const Npc &other) : name(other.name), path(other.path), position(other.position), texture(other.texture), sprite(other.sprite), description(other.description), message(other.message), side(other.side) {
+Npc::Npc(const Npc &other) : name(other.name), position(other.position),
+    texture(other.texture), sprite(other.sprite), side(other.side), description(other.description), message(other.message) {
     sprite.setTexture(texture);
 }
 
-Npc::Npc(int number, std::string path) : message() {
+Npc::Npc(int number, std::string path) {
     config.setPath(path);
     name = config.readString("Npc" + std::to_string(number), "name", "NULL");
     if(name == "NULL")
@@ -18,6 +19,7 @@ Npc::Npc(int number, std::string path) : message() {
     side = (Npc::Side)config.readString("Npc" + std::to_string(number), "s", "D")[0];
     this->side = side;
 
+    //load texture and sprite
     loadTexture(texture, config.readString("Npc" + std::to_string(number), "src", "NPC" + std::to_string(number)));
     sprite.setTexture(texture);
     sprite.setTextureRect(setIntRect(side));
@@ -29,6 +31,7 @@ Npc::Npc(int number, std::string path) : message() {
     description.setCharacterSize(16);
     description.setOutlineThickness(2);
 
+    //set message
     message.setString(config.readString("Npc" + std::to_string(number), "message", "Hey!"));
 }
 

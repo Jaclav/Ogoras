@@ -25,17 +25,16 @@ public:
     sf::Vector2<units> getPosition();
     void touched();
 private:
+    Ini config;
     std::string name;
-    std::string path;
     sf::Vector2<units> position;
 
-    Ini config;
 
     sf::Texture texture;
     sf::Sprite sprite;
+    Side side;
     mutable sf::Text description;
     Message message;
-    Side side;
 };
 
 #endif //NPC_HPP
