@@ -88,10 +88,8 @@ bool Map::shouldMove(sf::Vector2<units> position) {
         return false;
     }
 
-    if(blocksProperties[map[position.y][position.x]].command != "NULL") {
+    if(blocksProperties[map[position.y][position.x]].command != "NULL")
         Console::interpret(blocksProperties[map[position.y][position.x]].command);
-        return true;
-    }
 
     for(uint i = 0; i < npc.size(); i++) {
         if(npc[i].getPosition() == position) {
