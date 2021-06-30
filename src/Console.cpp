@@ -108,13 +108,18 @@ void Console::interpret(std::string command) {
         p2 = std::stoi(command.substr(command.find_last_of(" ")));
     }
     catch(...) {}
-    if(cmd == "noclip") {
-        settings.noclip = p1;
-        pushMessage("Noclip setted as " + std::to_string(p1));
-    }
-    else if(cmd == "clear") {
+
+    if(cmd == "clear") {
         previousString = "";
         previousText.setString(previousString);
+    }
+    else if(player == nullptr || game == nullptr) {
+        pushMessage("Game or player undefined!");
+        return;
+    }
+    else if(cmd == "noclip") {
+        settings.noclip = p1;
+        pushMessage("Noclip setted as " + std::to_string(p1));
     }
     else if(cmd == "load") {
         game->load(command.substr(command.find(" ") + 1));
