@@ -2,6 +2,7 @@
 
 void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(sprite, states);
+    target.draw(message, states);
 }
 
 void Player::load(std::string path) {
@@ -35,6 +36,7 @@ void Player::move(Side side) {
         position.x -= 1;
         break;
     }
+    message.setPosition(position);
 }
 
 sf::Vector2<units> Player::getPosition() {
@@ -51,4 +53,11 @@ void Player::setPosition(units x, units y) {
 
 void Player::setSide(Side side) {
     sprite.setTextureRect(setIntRect(side));
+}
+
+void Player::say(std::string string) {
+    message.setTime(sf::seconds(1));
+    message.setString(string);
+    message.trigger();
+    message.setPosition(position);
 }

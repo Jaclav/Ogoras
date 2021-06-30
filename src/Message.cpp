@@ -32,6 +32,8 @@ void Message::setString(std::string string) {
     if(text.getLocalBounds().width > sprite.getLocalBounds().width) {
         text.setCharacterSize(sprite.getLocalBounds().width / text.getString().getSize() * 1.5);
     }
+    else
+        text.setCharacterSize(30);
 }
 
 void Message::trigger() {

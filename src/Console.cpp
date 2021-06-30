@@ -127,6 +127,9 @@ void Console::interpret(std::string command) {
     else if(cmd == "position") {
         pushMessage("Player position is " + std::to_string(player->getPosition().x) + " " + std::to_string(player->getPosition().y));
     }
+    else if(cmd == "say") {
+        player->say(command.substr(command.find(" ")));
+    }
     else {
         pushMessage("Command not found!");
     }

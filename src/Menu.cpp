@@ -10,6 +10,10 @@ Menu::Menu(sf::RenderWindow &window) {
     subText.setCharacterSize(window.getSize().x / 35);
     setDefault(window);
 
+    //for initializing Console
+    std::vector<sf::Drawable*> tmp;
+    draw(window, tmp);
+
     loadTexture(backgroundT, "data/menuBackground.png");
     background.setTexture(backgroundT);
     background.setScale(window.getSize().x / background.getLocalBounds().width,

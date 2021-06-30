@@ -5,6 +5,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 
 #include "Entity.hpp"
+#include "Message.hpp"
 #include "inicpp/Ini.hpp"
 #include "tools.hpp"
 
@@ -18,6 +19,7 @@ public:
     void setPosition(units x, units y);
     void setSide(Side side);
 
+    void say(std::string string);
 
 private:
     Side side = Side::Down;
@@ -27,6 +29,8 @@ private:
 
     sf::Texture texture;
     sf::Sprite sprite;
+
+    Message message;
 };
 
 #endif //PLAYER_HPP
