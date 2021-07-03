@@ -48,7 +48,7 @@ Game::Game(sf::RenderWindow &window) {
 }
 
 void Game::load(std::string levelName) {
-    std::string path = "data/" + levelName + "/";
+    std::string path = "data/levels/" + levelName + "/";
     config.setPath(path + "config.ini");
 
     map.load(path);
