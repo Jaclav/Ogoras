@@ -28,6 +28,7 @@ Npc::Npc(int number, std::string path) : description("", font, 16) {
 
     //set description
     description.setOutlineThickness(2);
+	description.setString(name);
 
     //set message
     message.setString(config.readString(sectionName, "message", "Hey!"));
