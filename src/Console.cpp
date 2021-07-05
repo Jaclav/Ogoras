@@ -12,7 +12,7 @@ sf::RectangleShape Console::background;
 std::wstring Console::typedString = L"";
 sf::Text Console::typedText("> ", font);
 
-sf::Text Console::previousText("", font);
+sf::Text Console::previousText("", font, 20);
 
 std::ofstream Console::file("console.log", std::ios::out);
 
@@ -99,6 +99,7 @@ void Console::setHandles(Game *game, Player *player) {
 
 void Console::interpret(std::string command) {
     pushMessage("> " + command);
+
     std::string cmd = command.substr(0, command.find(" "));
     std::vector<int> parameterInt;
     parameterInt.reserve(3);
