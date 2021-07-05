@@ -8,7 +8,6 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
-#include "inicpp/Ini.hpp"
 #include "Npc.hpp"
 #include "tools.hpp"
 
@@ -21,9 +20,8 @@ public:
 
     void load(std::string path);
     bool shouldMove(sf::Vector2<units> position);
-private:
-    Ini config;
 
+private:
     typedef unsigned char Block;
     const Block Air = 0;
     std::vector<std::vector<Block>>map;

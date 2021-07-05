@@ -109,3 +109,115 @@ sf::IntRect setIntRect(Entity::Side side) {
     }
     return ir;
 }
+
+uint getNumberOfIniSections(std::string path) {
+    std::ifstream file(path);
+    uint quantity = 0;
+    std::string line;
+    while(std::getline(file, line)) {
+        if(line[0] == '[')
+            quantity++;
+    }
+    file.close();
+    return quantity;
+}
+
+std::string readIniString(std::string path, std::string section, std::string key, std::string def) {
+    std::ifstream file(path);
+    if(!file.good()) {
+        return def;
+    }
+
+    std::string line;
+    std::string currentSection;
+    std::string currentKey;
+
+    while(std::getline(file, line)) { //reading line
+        currentSection = line.substr(line.find("[") + 1); //value is path of section
+
+        if(currentSection.substr(0, currentSection.find("]")) != section) { //checking section
+            continue;
+        }
+
+        while(std::getline(file, line)) { //reading line in section
+            currentKey = line.substr(0, line.find("="));
+
+            if(currentKey.find("[") == 0) { //if start of another section
+                break;
+            }
+
+            if(currentKey != key) {
+                continue;
+            }
+
+            file.close();
+            return line.substr(line.find("=") + 1, line.size());
+        }
+    }
+    file.close();
+    return def;
+}
+
+int readIniInt(std::string path, std::string section, std::string key, int def) {
+    try {
+        return std::atoi(readIniString(path, section, key, std::to_string(def)).c_str());
+    }
+    catch(...) {
+        return def;
+    }
+}
+
+void writeIniString(std::string path, std::string section, std::string key, std::string value) {
+    std::fstream file(path, std::ios::in);
+    if(!file.good()) {
+        file << '[' << section << ']' << '\n' << key << '=' << value;
+    }
+
+    //loading file into memory
+    std::vector<std::string> loaded;
+    std::string tmp;
+    while(std::getline(file, tmp)) {
+        loaded.push_back(tmp);
+    }
+
+    bool sectionFounded = false;
+    bool keyFounded = false;
+
+    uint i = 0;
+
+    for(; i < loaded.size(); i++) { //search section
+        if(sectionFounded && loaded[i].size() > 3 && loaded[i][0] == '[') {//section is found and another section begins
+            break;
+        }
+        if(sectionFounded || (loaded[i].size() > 3 && loaded[i][0] == '[' && loaded[i].substr(1, loaded[i].size() - 2) == section)) {//if in good section
+            sectionFounded = true;
+            if(loaded[i].substr(0, loaded[i].find("=")) == key) { //if good key
+                loaded[i] = loaded[i].substr(0, loaded[i].find("=")) + "=" + value;
+                keyFounded = true;
+                break;
+            }
+        }
+    }
+
+    if(!sectionFounded) { //section doesn't exist
+        loaded.push_back("[" + section + "]");
+        loaded.push_back(key + "=" + value);
+    }
+    else if(!keyFounded) { // section exists but key doesn't
+        loaded.insert(loaded.begin() + i, key + "=" + value);
+    }
+
+    file.close();
+    file.open(path, std::ios::out);
+
+    for(uint i = 0; i < loaded.size(); i++) {
+        file << loaded[i] << '\n';
+    }
+
+    file.close();
+    return;
+}
+
+void writeIniInt(std::string path, std::string section, std::string key, int value) {
+    writeIniString(path, section, key, std::to_string(value));
+}

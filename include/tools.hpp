@@ -30,4 +30,10 @@ void loadTexture(sf::Texture &texture, std::string path);
 void setAndAlignText(sf::Text &text, std::wstring str, uint windowWidth, uint posY);
 sf::IntRect setIntRect(Entity::Side side);
 
+uint getNumberOfIniSections(std::string path);
+std::string readIniString(std::string path, std::string section, std::string key, std::string def);
+int readIniInt(std::string path, std::string section, std::string key, int def);
+void writeIniString(std::string path, std::string section, std::string key, std::string value);
+void writeIniInt(std::string path, std::string section, std::string key, int value);
+
 #endif //TOOLS_HPP

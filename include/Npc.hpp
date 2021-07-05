@@ -9,7 +9,6 @@
 
 #include "Entity.hpp"
 #include "Message.hpp"
-#include "inicpp/Ini.hpp"
 #include "tools.hpp"
 
 #include "../resources/notFound.png.hpp"
@@ -25,7 +24,6 @@ public:
     sf::Vector2<units> getPosition();
     void touched();
 private:
-    Ini config;
     std::string name;
     sf::Vector2<units> position;
 

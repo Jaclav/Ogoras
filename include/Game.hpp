@@ -7,7 +7,6 @@
 
 #include "Console.hpp"
 #include "Map.hpp"
-#include "inicpp/Ini.hpp"
 #include "Player.hpp"
 #include "tools.hpp"
 
@@ -19,7 +18,6 @@ public:
 private:
     sf::Event event;
 
-    Ini config;
     Map map;
     Player player;
     const sf::RenderWindow *window;

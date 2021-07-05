@@ -6,12 +6,11 @@ void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 }
 
 void Player::load(std::string path) {
-    config.setPath(path + "config.ini");
-    setPosition(config.readInt("Player", "x", 0),
-                config.readInt("Player", "y", 0));
-    setSide((Side)config.readString("Player", "s", "D")[0]);
+    setPosition(readIniInt(path + "config.ini", "Player", "x", 0),
+                readIniInt(path + "config.ini", "Player", "y", 0));
+    setSide((Side)readIniString(path + "config.ini", "Player", "s", "D")[0]);
 
-    loadTexture(texture, config.readString("Player", "src", "data/characters/player.png"));
+    loadTexture(texture, readIniString(path + "config.ini", "Player", "src", "data/characters/player.png"));
     sprite.setTexture(texture);
 }
 

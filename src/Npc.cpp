@@ -6,22 +6,19 @@ Npc::Npc(const Npc &other) : name(other.name), position(other.position),
 }
 
 Npc::Npc(int number, std::string path) : description("", font, 16) {
-    config.setPath(path);
-    name = config.readString("Npc" + std::to_string(number), "name", "NULL");
-    if(name == "NULL")
-        std::cerr << "NPC" << number << " name is NULL!\n";
+    name = readIniString(path, "Npc" + std::to_string(number), "name", "NULL");
     std::string sectionName = "Npc" + std::to_string(number);
 
     //load position
-    position.x = config.readInt(sectionName, "x", 0);
-    position.y = config.readInt(sectionName, "y", 0);
+    position.x = readIniInt(path, sectionName, "x", 0);
+    position.y = readIniInt(path, sectionName, "y", 0);
 
     //load side
-    side = (Npc::Side)config.readString(sectionName, "s", "D")[0];
+    side = (Npc::Side)readIniString(path, sectionName, "s", "D")[0];
     this->side = side;
 
     //load texture and sprite
-    loadTexture(texture, config.readString(sectionName, "src", sectionName));
+    loadTexture(texture, readIniString(path, sectionName, "src", sectionName));
     sprite.setTexture(texture);
     sprite.setTextureRect(setIntRect(side));
     sprite.setPosition(position.x * PIXELS_PER_UNIT, position.y * PIXELS_PER_UNIT);
@@ -31,8 +28,8 @@ Npc::Npc(int number, std::string path) : description("", font, 16) {
 	description.setString(name);
 
     //set message
-    message.setString(config.readString(sectionName, "message", "Hey!"));
-    message.setTime(sf::milliseconds((sf::Int32)config.readInt(sectionName, "messageTime", 2000)));
+    message.setString(readIniString(path, sectionName, "message", "Hey!"));
+    message.setTime(sf::milliseconds((sf::Int32)readIniInt(path, sectionName, "messageTime", 2000)));
 }
 
 void Npc::draw(sf::RenderTarget& target, sf::RenderStates states) const {

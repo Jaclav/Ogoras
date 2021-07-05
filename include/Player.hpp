@@ -6,7 +6,6 @@
 
 #include "Entity.hpp"
 #include "Message.hpp"
-#include "inicpp/Ini.hpp"
 #include "tools.hpp"
 
 class Player : public Entity {
@@ -25,7 +24,6 @@ private:
     Side side = Side::Down;
     u_char velocity = 1;
     sf::Vector2<units> position;
-    Ini config;
 
     sf::Texture texture;
     sf::Sprite sprite;

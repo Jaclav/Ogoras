@@ -38,8 +38,7 @@ void Map::drawNpcs(sf::RenderTarget &target, sf::RenderStates states) const {
 
 void Map::load(std::string path) {
     //blocks properties
-    config.setPath(path + "blocks.ini");
-    uint quantity = config.getNumberOfSections();
+    uint quantity = getNumberOfIniSections(path + "blocks.ini");
     if(quantity > 254) {
         Console::pushMessage("Too many blocks! Maximum is 254.");
         quantity = 254;
@@ -47,11 +46,11 @@ void Map::load(std::string path) {
     blocksProperties.clear();
 
     for(uint i = 0; i <= quantity; i++) {
-        BlockProperties blockProperties{(units)config.readInt("Block" + std::to_string(i), "x", 0),
-                                        (units)config.readInt("Block" + std::to_string(i), "y", 0),
-                                        (bool)config.readInt("Block" + std::to_string(i), "solid", true),
-                                        config.readInt("Block" + std::to_string(i), "rotation", 0),
-                                        config.readString("Block" + std::to_string(i), "command", "NULL")};
+        BlockProperties blockProperties{(units)readIniInt(path + "blocks.ini", "Block" + std::to_string(i), "x", 0),
+                                        (units)readIniInt(path + "blocks.ini", "Block" + std::to_string(i), "y", 0),
+                                        (bool)readIniInt(path + "blocks.ini", "Block" + std::to_string(i), "solid", true),
+                                        readIniInt(path + "blocks.ini", "Block" + std::to_string(i), "rotation", 0),
+                                        readIniString(path + "blocks.ini", "Block" + std::to_string(i), "command", "NULL")};
         blocksProperties.push_back(blockProperties);
     }
 
@@ -71,10 +70,9 @@ void Map::load(std::string path) {
     }
 
     //npc
-    config.setPath(path + "npc.ini");
     npc.clear();
     std::string name = "";
-    quantity = config.getNumberOfSections();
+    quantity = getNumberOfIniSections(path + "npc.ini");
     npc.reserve(quantity);
 
     for(uint i = 0; i < quantity; i++) {
