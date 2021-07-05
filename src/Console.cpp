@@ -12,7 +12,6 @@ sf::RectangleShape Console::background;
 std::string Console::typedString = "";
 sf::Text Console::typedText(">", font);
 
-std::string Console::previousString = "";
 sf::Text Console::previousText("", font);
 
 std::ofstream Console::file("console.log", std::ios::out);
@@ -60,7 +59,7 @@ void Console::handleEvent(sf::Event &event) {
             typedString = sf::Clipboard::getString();
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::C) && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
-            sf::Clipboard::setString(previousString);
+            sf::Clipboard::setString(previousText.getString());
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
             interpret(typedString);
@@ -82,12 +81,11 @@ void Console::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 void Console::pushMessage(std::string message) {
     file << message << std::endl;
 
-    previousString += message += "\n";
-    previousText.setString(previousString);
+    previousText.setString(previousText.getString() + message + "\n");
     if(previousText.getLocalBounds().height > background.getSize().y - typedText.getLocalBounds().height) {
-        previousString = previousString.substr(previousString.find("\n") + 1, previousString.size() - previousString.find("\n"));
+        previousText.setString(previousText.getString().substring(previousText.getString().find("\n") + 1,
+                               previousText.getString().getSize() - previousText.getString().find("\n")));
     }
-    previousText.setString(previousString);
 }
 
 Console::Settings Console::getSettings() {
@@ -110,8 +108,7 @@ void Console::interpret(std::string command) {
     catch(...) {}
 
     if(cmd == "clear") {
-        previousString = "";
-        previousText.setString(previousString);
+        previousText.setString("");
     }
     else if(player == nullptr || game == nullptr) {
         pushMessage("Game or player undefined!");

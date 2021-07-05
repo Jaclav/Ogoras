@@ -40,7 +40,6 @@ private:
 
     static sf::RectangleShape background;
 
-    static std::string previousString;
     static sf::Text previousText;
     static std::string typedString;
     static sf::Text typedText;
