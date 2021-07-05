@@ -9,8 +9,8 @@ Player *Console::player = nullptr;
 
 sf::RectangleShape Console::background;
 
-std::string Console::typedString = "";
-sf::Text Console::typedText(">", font);
+std::wstring Console::typedString = L"";
+sf::Text Console::typedText("> ", font);
 
 sf::Text Console::previousText("", font);
 
@@ -35,7 +35,7 @@ Console::~Console() {
 void Console::handleEvent(sf::Event &event) {
     if(activated && event.type == sf::Event::TextEntered && event.text.unicode > 31 && event.text.unicode != '`') {
         typedString += event.text.unicode;
-        typedText.setString(">" + typedString);
+        typedText.setString(L"> " + typedString);
     }
 
     //cooldown
@@ -53,7 +53,7 @@ void Console::handleEvent(sf::Event &event) {
     if(activated) {
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace) && typedString.size() > 0) {
             typedString.pop_back();
-            typedText.setString(">" + typedString);
+            typedText.setString(L"> " + typedString);
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::V) && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
             typedString = sf::Clipboard::getString();
@@ -62,10 +62,10 @@ void Console::handleEvent(sf::Event &event) {
             sf::Clipboard::setString(previousText.getString());
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
-            interpret(typedString);
-            typedString = "";
+            interpret(std::string(typedString.begin(), typedString.end()));
+            typedString = L"";
         }
-        typedText.setString(">" + typedString);
+        typedText.setString(L"> " + typedString);
     }
 }
 
@@ -98,6 +98,7 @@ void Console::setHandles(Game *game, Player *player) {
 }
 
 void Console::interpret(std::string command) {
+    pushMessage("> " + command);
     std::string cmd = command.substr(0, command.find(" "));
     std::vector<int> parameterInt;
     parameterInt.reserve(3);

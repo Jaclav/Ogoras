@@ -41,7 +41,7 @@ private:
     static sf::RectangleShape background;
 
     static sf::Text previousText;
-    static std::string typedString;
+    static std::wstring typedString;
     static sf::Text typedText;
 
     static std::ofstream file;
