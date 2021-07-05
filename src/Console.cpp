@@ -99,13 +99,22 @@ void Console::setHandles(Game *game, Player *player) {
 
 void Console::interpret(std::string command) {
     std::string cmd = command.substr(0, command.find(" "));
-    int p1 = 0, p2 = 0;
-    try {
-        command = command.substr(command.find(" "));
-        p1 = std::stoi(command.substr(command.find(" ")));
-        p2 = std::stoi(command.substr(command.find_last_of(" ")));
+    std::vector<int> parameterInt;
+    parameterInt.reserve(3);
+    std::vector<std::string> parameterStr;
+    parameterStr.reserve(3);
+
+    std::string tmp = command;
+    for(int i = 0; tmp.find(" ") != std::string::npos; i++) {
+        tmp = tmp.substr(tmp.find(" ") + 1, tmp.size());
+        parameterStr.push_back(tmp.substr(0, tmp.find(" ")));
+        try {
+            parameterInt.push_back(std::stoi(tmp.substr(0, tmp.find(" "))));
+        }
+        catch(...) {
+            parameterInt.push_back(0);
+        }
     }
-    catch(...) {}
 
     if(cmd == "clear") {
         previousText.setString("");
@@ -115,22 +124,26 @@ void Console::interpret(std::string command) {
         return;
     }
     else if(cmd == "noclip") {
-        settings.noclip = p1;
-        pushMessage("Noclip setted as " + std::to_string(p1));
+        settings.noclip = parameterInt[0];
+        pushMessage("Noclip setted as " + std::to_string(parameterInt[1]));
     }
     else if(cmd == "load") {
-        game->load(command.substr(command.find(" ") + 1));
+        game->load(parameterStr[0]);
         pushMessage("Level loaded");
     }
     else if(cmd == "tp") {
-        player->setPosition(p1, p2);
-        pushMessage("Player teleported at" + command);
+        if(parameterInt.size() < 2) {
+            pushMessage("2 parameters required!");
+            return;
+        }
+        player->setPosition(parameterInt[0], parameterInt[1]);
+        pushMessage("Player teleported at " + std::to_string(player->getPosition().x) + " " + std::to_string(player->getPosition().y));
     }
     else if(cmd == "position") {
         pushMessage("Player position is " + std::to_string(player->getPosition().x) + " " + std::to_string(player->getPosition().y));
     }
     else if(cmd == "say") {
-        player->say(command.substr(command.find(" ")));
+        player->say(command.substr(command.find(" ") + 1));
     }
     else {
         pushMessage("Command not found!");
