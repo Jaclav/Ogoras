@@ -21,6 +21,7 @@ public:
     bool shouldMove(sf::Vector2<units> position);
 
     void setBlock(units x, units y, Block block);
+    Npc* getNpc(size_t number);
 
 private:
     std::vector<std::vector<Block>>map;

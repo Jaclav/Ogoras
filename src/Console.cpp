@@ -145,7 +145,7 @@ void Console::interpret(std::string command) {
             player->setPosition(parameterInt[0], parameterInt[1]);
             pushMessage("Player teleported at " + std::to_string(player->getPosition().x) + " " + std::to_string(player->getPosition().y));
         }
-        else{
+        else {
             pushMessage("Cannnot teleport there!");
         }
     }
@@ -158,6 +158,10 @@ void Console::interpret(std::string command) {
     //map
     else if(cmd == "map_block") {
         map->setBlock(parameterInt[0], parameterInt[1], parameterInt[2]);
+    }
+    //npc
+    else if(cmd == "npc_touch") {
+        map->getNpc(parameterInt[0])->touched();
     }
     else {
         pushMessage("Command not found!");

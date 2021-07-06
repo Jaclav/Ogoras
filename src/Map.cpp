@@ -112,12 +112,19 @@ bool Map::shouldMove(sf::Vector2<units> position) {
 }
 
 void Map::setBlock(units x, units y, Block block) {
-    if(x < map[0].size() && y < map.size()){
-        if(block > blocksProperties.size()){
+    if(x < map[0].size() && y < map.size()) {
+        if(block > blocksProperties.size()) {
             blocksProperties.resize(block + 1);
         }
         map[y][x] = block;
     }
     else
         Console::pushMessage("Reference to nonexisting map's memory!");
+}
+
+Npc* Map::getNpc(size_t number) {
+    if(number < npc.size()) {
+        return &npc[number];
+    }
+    return &npc[0];
 }
