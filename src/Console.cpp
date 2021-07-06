@@ -101,13 +101,14 @@ void Console::setHandles(Game *game, Map *map, Player *player) {
 }
 
 void Console::interpret(std::string command) {
+    static const size_t maxParametersAmount = 3;
     pushMessage("> " + command);
 
     std::string cmd = command.substr(0, command.find(" "));
     std::vector<int> parameterInt;
-    parameterInt.reserve(3);
+    parameterInt.reserve(maxParametersAmount);
     std::vector<std::string> parameterStr;
-    parameterStr.reserve(3);
+    parameterStr.reserve(maxParametersAmount);
 
     std::string tmp = command;
     for(int i = 0; tmp.find(" ") != std::string::npos; i++) {
@@ -120,6 +121,8 @@ void Console::interpret(std::string command) {
             parameterInt.push_back(0);
         }
     }
+    parameterInt.resize(maxParametersAmount);
+    parameterStr.resize(maxParametersAmount);
 
     if(cmd == "clear") {
         previousText.setString("");
@@ -138,12 +141,13 @@ void Console::interpret(std::string command) {
         pushMessage("Noclip setted as " + std::to_string(parameterInt[1]));
     }
     else if(cmd == "tp") {
-        if(parameterInt.size() < 2) {
-            pushMessage("2 parameters required!");
-            return;
+        if(map->shouldMove(sf::Vector2<units>(parameterInt[0], parameterInt[1]))) {
+            player->setPosition(parameterInt[0], parameterInt[1]);
+            pushMessage("Player teleported at " + std::to_string(player->getPosition().x) + " " + std::to_string(player->getPosition().y));
         }
-        player->setPosition(parameterInt[0], parameterInt[1]);
-        pushMessage("Player teleported at " + std::to_string(player->getPosition().x) + " " + std::to_string(player->getPosition().y));
+        else{
+            pushMessage("Cannnot teleport there!");
+        }
     }
     else if(cmd == "position") {
         pushMessage("Player position is " + std::to_string(player->getPosition().x) + " " + std::to_string(player->getPosition().y));
