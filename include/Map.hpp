@@ -17,13 +17,12 @@ public:
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
     void drawNpcs(sf::RenderTarget &target, sf::RenderStates states) const;
-
     void load(std::string path);
     bool shouldMove(sf::Vector2<units> position);
 
+    void setBlock(units x, units y, Block block);
+
 private:
-    typedef unsigned char Block;
-    const Block Air = 0;
     std::vector<std::vector<Block>>map;
 
     struct BlockProperties {

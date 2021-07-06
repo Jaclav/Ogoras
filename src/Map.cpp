@@ -1,7 +1,7 @@
 #include "Map.hpp"
 
 Map::Map() {
-    blocksProperties.reserve(255);
+    blocksProperties.resize(255);
 
     loadTexture(texture, "data/blocks.png");
     sprite.setTexture(texture);
@@ -83,7 +83,6 @@ void Map::load(std::string path) {
 bool Map::shouldMove(sf::Vector2<units> position) {
     if(position.y >= map.size() || position.x >= map[0].size()) {
         Console::pushMessage("Reference to nonexisting map's memory!");
-        Console::interpret("say I shouldn't go there!");
         return false;
     }
 
@@ -110,4 +109,11 @@ bool Map::shouldMove(sf::Vector2<units> position) {
     }
 
     return false;
+}
+
+void Map::setBlock(units x, units y, Block block) {
+    if(x < map[0].size() && y < map.size())
+        map[y][x] = block;
+    else
+        Console::pushMessage("Reference to nonexisting map's memory!");
 }

@@ -1,10 +1,12 @@
 #include "Console.hpp"
 #include "Game.hpp"
+#include "Map.hpp"
 
 Console::Settings Console::settings = {};
 
 bool Console::activated = false;
 Game *Console::game = nullptr;
+Map *Console::map = nullptr;
 Player *Console::player = nullptr;
 
 sf::RectangleShape Console::background;
@@ -92,8 +94,9 @@ Console::Settings Console::getSettings() {
     return settings;
 }
 
-void Console::setHandles(Game *game, Player *player) {
+void Console::setHandles(Game *game, Map *map, Player *player) {
     Console::game = game;
+    Console::map = map;
     Console::player = player;
 }
 
@@ -125,13 +128,14 @@ void Console::interpret(std::string command) {
         pushMessage("Game or player undefined!");
         return;
     }
-    else if(cmd == "noclip") {
-        settings.noclip = parameterInt[0];
-        pushMessage("Noclip setted as " + std::to_string(parameterInt[1]));
-    }
     else if(cmd == "load") {
         game->load(parameterStr[0]);
         pushMessage("Level loaded");
+    }
+    //player
+    else if(cmd == "noclip") {
+        settings.noclip = parameterInt[0];
+        pushMessage("Noclip setted as " + std::to_string(parameterInt[1]));
     }
     else if(cmd == "tp") {
         if(parameterInt.size() < 2) {
@@ -146,6 +150,10 @@ void Console::interpret(std::string command) {
     }
     else if(cmd == "say") {
         player->say(command.substr(command.find(" ") + 1));
+    }
+    //map
+    else if(cmd == "map_block") {
+        map->setBlock(parameterInt[0], parameterInt[1], parameterInt[2]);
     }
     else {
         pushMessage("Command not found!");
