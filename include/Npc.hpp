@@ -21,8 +21,11 @@ public:
     Npc(int number, std::string path);
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-    sf::Vector2<units> getPosition();
+    void say(std::string string);
     void touched();
+
+    sf::Vector2<units> getPosition();
+
 private:
     std::string name;
     sf::Vector2<units> position;

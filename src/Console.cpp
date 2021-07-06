@@ -160,6 +160,11 @@ void Console::interpret(std::string command) {
         map->setBlock(parameterInt[0], parameterInt[1], parameterInt[2]);
     }
     //npc
+    else if(cmd == "npc_say") {
+        if(command.find(" ") != std::string::npos && command.find(" ", command.find(" ")  + 1) != std::string::npos)
+            map->getNpc(parameterInt[0])->say(command.substr(command.find(" ", command.find(" ")  + 1) + 1));
+        pushMessage("Wrong npc_say parameters!");
+    }
     else if(cmd == "npc_touch") {
         map->getNpc(parameterInt[0])->touched();
     }

@@ -25,7 +25,7 @@ Npc::Npc(int number, std::string path) : description("", font, 16) {
 
     //set description
     description.setOutlineThickness(2);
-	description.setString(name);
+    description.setString(name);
 
     //set message
     message.setString(readIniString(path, sectionName, "message", "Hey!"));
@@ -38,11 +38,17 @@ void Npc::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(message, states);
 }
 
-sf::Vector2<units> Npc::getPosition() {
-    return position;
+void Npc::say(std::string string) {
+    message.setString(string);
+    message.setPosition(position);
+    message.trigger();
 }
 
 void Npc::touched() {
     message.setPosition(position);
     message.trigger();
+}
+
+sf::Vector2<units> Npc::getPosition() {
+    return position;
 }
