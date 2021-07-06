@@ -1,4 +1,5 @@
 #include "Message.hpp"
+#include <iostream>
 
 Message::Message() : text("", font) {
     loadTexture(texture, "data/characters/message.png");
@@ -29,18 +30,16 @@ void Message::setPosition(sf::Vector2<units> position) {
 
 void Message::setString(std::string string) {
     text.setString(string);
+    text.setCharacterSize(30);
+
     if(text.getLocalBounds().width > sprite.getLocalBounds().width) {
         text.setCharacterSize(sprite.getLocalBounds().width / text.getString().getSize() * 1.5);
     }
-    else
-        text.setCharacterSize(30);
+
+    time = sf::milliseconds(30000 / text.getCharacterSize());
 }
 
 void Message::trigger() {
     activated = true;
     clock.restart();
-}
-
-void Message::setTime(sf::Time time) {
-    this->time = time;
 }

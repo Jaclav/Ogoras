@@ -18,7 +18,6 @@ public:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void setPosition(sf::Vector2<units> position);
     void setString(std::string string);
-    void setTime(sf::Time time);
     void trigger();
 
 private:

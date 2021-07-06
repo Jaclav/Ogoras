@@ -29,7 +29,6 @@ Npc::Npc(int number, std::string path) : description("", font, 16) {
 
     //set message
     message.setString(readIniString(path, sectionName, "message", "Hey!"));
-    message.setTime(sf::milliseconds((sf::Int32)readIniInt(path, sectionName, "messageTime", 2000)));
 }
 
 void Npc::draw(sf::RenderTarget& target, sf::RenderStates states) const {

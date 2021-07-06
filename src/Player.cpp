@@ -55,8 +55,7 @@ void Player::setSide(Side side) {
 }
 
 void Player::say(std::string string) {
-    message.setTime(sf::seconds(1));
     message.setString(string);
-    message.trigger();
     message.setPosition(position);
+    message.trigger();
 }
