@@ -1,7 +1,7 @@
 #include "Map.hpp"
 
 Map::Map() {
-    blocksProperties.resize(255);
+    blocksProperties.reserve(255);
 
     loadTexture(texture, "data/blocks.png");
     sprite.setTexture(texture);
@@ -112,8 +112,12 @@ bool Map::shouldMove(sf::Vector2<units> position) {
 }
 
 void Map::setBlock(units x, units y, Block block) {
-    if(x < map[0].size() && y < map.size())
+    if(x < map[0].size() && y < map.size()){
+        if(block > blocksProperties.size()){
+            blocksProperties.resize(block + 1);
+        }
         map[y][x] = block;
+    }
     else
         Console::pushMessage("Reference to nonexisting map's memory!");
 }
