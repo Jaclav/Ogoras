@@ -15,8 +15,11 @@ public:
     Game(sf::RenderWindow &window);
     void load(std::string levelName);
 
+    std::string getLevelName();
+
 private:
     sf::Event event;
+    std::string levelName;
 
     Map map;
     Player player;

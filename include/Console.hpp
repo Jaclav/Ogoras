@@ -3,11 +3,13 @@
 
 #include <fstream>
 #include <string>
+#include <thread>
 #include <vector>
 
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/System/Sleep.hpp>
 #include <SFML/Window/Clipboard.hpp>
 #include <SFML/Window/Event.hpp>
 
@@ -33,6 +35,7 @@ public:
     static Settings getSettings();
     static void setHandles(Game *game, Map *map, Player *player);
     static void interpret(std::string command);
+    static void script(std::string path);
 
 private:
     static bool activated;

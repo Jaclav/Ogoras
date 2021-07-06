@@ -48,6 +48,7 @@ Game::Game(sf::RenderWindow &window) {
 }
 
 void Game::load(std::string levelName) {
+    this->levelName = levelName;
     std::string path = "data/levels/" + levelName + "/";
     map.load(path);
     player.load(path);
@@ -57,4 +58,8 @@ void Game::load(std::string levelName) {
     background.setTexture(backgroundT);
     background.setScale(window->getSize().x / background.getLocalBounds().width,
                         window->getSize().y / background.getLocalBounds().height);
+}
+
+std::string Game::getLevelName(){
+    return levelName;
 }

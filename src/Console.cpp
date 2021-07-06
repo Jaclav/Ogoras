@@ -127,13 +127,24 @@ void Console::interpret(std::string command) {
     if(cmd == "clear") {
         previousText.setString("");
     }
-    else if(player == nullptr || game == nullptr) {
-        pushMessage("Game or player undefined!");
+    else if(game == nullptr || map == nullptr || player == nullptr) {
+        pushMessage("Some handles are undefined!");
         return;
     }
     else if(cmd == "load") {
         game->load(parameterStr[0]);
         pushMessage("Level loaded");
+    }
+    else if(cmd == "start") {
+        //it is dangerous TODO: stop changing console font, why do it do?
+        try {
+            std::thread(&script, "data/levels/" + game->getLevelName() + "/" + parameterStr[0] + ".scr").detach();
+        }
+        catch(...) {}
+        return;
+    }
+    else if(cmd == "wait") {
+        sf::sleep(sf::milliseconds(parameterInt[0]));
     }
     //player
     else if(cmd == "noclip") {
@@ -163,12 +174,25 @@ void Console::interpret(std::string command) {
     else if(cmd == "npc_say") {
         if(command.find(" ") != std::string::npos && command.find(" ", command.find(" ")  + 1) != std::string::npos)
             map->getNpc(parameterInt[0])->say(command.substr(command.find(" ", command.find(" ")  + 1) + 1));
-        pushMessage("Wrong npc_say parameters!");
+        else
+            pushMessage("Wrong npc_say parameters!");
     }
     else if(cmd == "npc_touch") {
         map->getNpc(parameterInt[0])->touched();
     }
     else {
         pushMessage("Command not found!");
+    }
+}
+
+void Console::script(std::string path) {
+    std::ifstream file(path);
+    if(!file.good()) {
+        pushMessage("Bad file!");
+        return;
+    }
+    std::string line;
+    while(std::getline(file, line)) {
+        interpret(line);
     }
 }

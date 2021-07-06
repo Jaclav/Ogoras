@@ -15,4 +15,4 @@ file(GLOB SOURCES src/*.cpp lib/inicpp/Ini.cpp)
 add_executable(Ogoras ${SOURCES})
 
 find_package(SFML 2.5.1 COMPONENTS audio graphics system window REQUIRED)
-target_link_libraries(Ogoras sfml-audio sfml-graphics sfml-system sfml-window)
+target_link_libraries(Ogoras sfml-audio sfml-graphics sfml-system sfml-window pthread)
