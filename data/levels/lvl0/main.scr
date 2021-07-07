@@ -1,0 +1,5 @@
+npc_say 0 Synek, mam bojowe zadanie.
+wait 3500
+say Jakie?
+wait 2000
+npc_say 0 Pójdź do piwnicy po ogórki.

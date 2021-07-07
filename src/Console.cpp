@@ -193,6 +193,11 @@ void Console::script(std::string path) {
     }
     std::string line;
     while(std::getline(file, line)) {
-        interpret(line);
+        try {
+            interpret(line);
+        }
+        catch(...) {
+
+        }
     }
 }

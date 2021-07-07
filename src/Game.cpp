@@ -3,9 +3,9 @@
 Game::Game(sf::RenderWindow &window) {
     this->window = &window;
     std::vector<sf::Drawable*>toDraw = {&background, &map, &player};
+    Console::setHandles(this, &map, &player);
     load("lvl0");
     Console::pushMessage("Game loaded");
-    Console::setHandles(this, &map, &player);
 
     while(window.isOpen()) {
         while(window.pollEvent(event)) {
@@ -58,6 +58,8 @@ void Game::load(std::string levelName) {
     background.setTexture(backgroundT);
     background.setScale(window->getSize().x / background.getLocalBounds().width,
                         window->getSize().y / background.getLocalBounds().height);
+
+    Console::interpret("start main");
 }
 
 std::string Game::getLevelName(){
