@@ -18,7 +18,7 @@ public:
     void setPosition(units x, units y);
     void setSide(Side side);
 
-    void say(std::string string);
+    void say(sf::Time time, std::string string);
 
 private:
     Side side = Side::Down;

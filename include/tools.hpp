@@ -28,6 +28,7 @@ const Block Air = 0;
 
 void defaultEvents(sf::RenderWindow &window, sf::Event event);
 void draw(sf::RenderWindow &window, std::vector<sf::Drawable*>&toDraw);
+size_t findNthElement(std::string string, char toFind, uint n);
 void loadTexture(sf::Texture &texture, std::string path);
 void setAndAlignText(sf::Text &text, std::wstring str, uint windowWidth, uint posY);
 sf::IntRect setIntRect(Entity::Side side);

@@ -54,8 +54,9 @@ void Player::setSide(Side side) {
     sprite.setTextureRect(setIntRect(side));
 }
 
-void Player::say(std::string string) {
+void Player::say(sf::Time time, std::string string) {
     message.setString(string);
     message.setPosition(position);
+    message.setTime(time);
     message.trigger();
 }

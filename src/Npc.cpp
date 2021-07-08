@@ -38,9 +38,10 @@ void Npc::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(message, states);
 }
 
-void Npc::say(std::string string) {
+void Npc::say(sf::Time time, std::string string) {
     message.setString(string);
     message.setPosition(position);
+    message.setTime(time);
     message.trigger();
 }
 

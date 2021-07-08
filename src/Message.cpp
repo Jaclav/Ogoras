@@ -35,8 +35,10 @@ void Message::setString(std::string string) {
     if(text.getLocalBounds().width > sprite.getLocalBounds().width) {
         text.setCharacterSize(sprite.getLocalBounds().width / text.getString().getSize() * 1.5);
     }
+}
 
-    time = sf::milliseconds(30000 / text.getCharacterSize());
+void Message::setTime(sf::Time time) {
+    this->time = time;
 }
 
 void Message::trigger() {

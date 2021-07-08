@@ -161,7 +161,10 @@ void Console::interpret(std::string command) {
         pushMessage("Player position is " + std::to_string(player->getPosition().x) + " " + std::to_string(player->getPosition().y));
     }
     else if(cmd == "say") {
-        player->say(command.substr(command.find(" ") + 1));
+        if(findNthElement(command, ' ', 2) != std::string::npos)
+            player->say(sf::milliseconds(parameterInt[0]), command.substr(findNthElement(command, ' ', 2) + 1));
+        else
+            pushMessage("Wrong say parameters!");
     }
     //map
     else if(cmd == "map_block") {
@@ -169,8 +172,8 @@ void Console::interpret(std::string command) {
     }
     //npc
     else if(cmd == "npc_say") {
-        if(command.find(" ") != std::string::npos && command.find(" ", command.find(" ")  + 1) != std::string::npos)
-            map->getNpc(parameterInt[0])->say(command.substr(command.find(" ", command.find(" ")  + 1) + 1));
+        if(findNthElement(command, ' ', 3) != std::string::npos)
+            map->getNpc(parameterInt[0])->say(sf::milliseconds(parameterInt[1]), command.substr(findNthElement(command, ' ', 3) + 1));
         else
             pushMessage("Wrong npc_say parameters!");
     }

@@ -16,8 +16,9 @@ public:
     Message(const Message &other);
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-    void setPosition(sf::Vector2<units> position);
+    void setPosition(sf::Vector2<units> position);// must be call after setString
     void setString(std::string string);
+    void setTime(sf::Time time);
     void trigger();
 
 private:

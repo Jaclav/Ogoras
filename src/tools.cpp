@@ -69,6 +69,19 @@ void draw(sf::RenderWindow &window, std::vector<sf::Drawable*>&toDraw) {
     return;
 }
 
+size_t findNthElement(std::string string, char toFind, uint n) {
+    uint instance = 0;
+    for(size_t i = 0; i < string.size(); i++) {
+        if(string[i] == toFind) {
+            instance++;
+            if(instance == n) {
+                return i;
+            }
+        }
+    }
+    return std::string::npos;
+}
+
 void loadTexture(sf::Texture &texture, std::string path) {
     //fstream doesn't work on wine
     if(FILE *file = fopen(path.c_str(), "r")) {
