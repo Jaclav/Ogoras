@@ -1,5 +1,7 @@
-npc_say 0 Synek, mam bojowe zadanie.
+npc_say 0 Synek,
+wait 1000
+npc_say 0 masz bojowe zadanie
 wait 3500
 say Jakie?
 wait 2000
-npc_say 0 Pójdź do piwnicy po ogórki.
+npc_say 0 Pojdz do piwnicy po ogorki.

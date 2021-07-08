@@ -84,9 +84,11 @@ void Console::pushMessage(std::string message) {
     file << message << std::endl;
 
     previousText.setString(previousText.getString() + message + "\n");
-    if(previousText.getLocalBounds().height > background.getSize().y - typedText.getLocalBounds().height) {
-        previousText.setString(previousText.getString().substring(previousText.getString().find("\n") + 1,
-                               previousText.getString().getSize() - previousText.getString().find("\n")));
+    std::string tmp = previousText.getString().toAnsiString();
+
+    if(std::count(tmp.begin(), tmp.end(), '\n') > 9) {
+        tmp = tmp.substr(tmp.find("\n") + 1, tmp.size() - tmp.find("\n"));
+        previousText.setString(tmp);
     }
 }
 
@@ -136,12 +138,7 @@ void Console::interpret(std::string command) {
         pushMessage("Level loaded");
     }
     else if(cmd == "start") {
-        //it is dangerous TODO: stop changing console font, why do it do?
-        try {
-            std::thread(&script, "data/levels/" + game->getLevelName() + "/" + parameterStr[0] + ".scr").detach();
-        }
-        catch(...) {}
-        return;
+        std::thread(&script, "data/levels/" + game->getLevelName() + "/" + parameterStr[0] + ".scr").detach();
     }
     else if(cmd == "wait") {
         sf::sleep(sf::milliseconds(parameterInt[0]));
@@ -193,11 +190,6 @@ void Console::script(std::string path) {
     }
     std::string line;
     while(std::getline(file, line)) {
-        try {
-            interpret(line);
-        }
-        catch(...) {
-
-        }
+        interpret(line);
     }
 }
