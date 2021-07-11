@@ -29,8 +29,8 @@ private:
     sf::Texture texture;
     mutable sf::Sprite sprite;
 
-    sf::Vector2i frameSize;
     int frameY = 0;
+    sf::Vector2i frameSize;
 
     mutable sf::Clock clock;
     mutable sf::Time period = sf::milliseconds(1000);

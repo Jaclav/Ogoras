@@ -4,7 +4,7 @@ Animation::Animation() {
 
 }
 
-Animation::Animation(const Animation &other) : texture(other.texture), sprite(other.sprite), frameSize(other.frameSize), period(other.period) {
+Animation::Animation(const Animation &other) : texture(other.texture), sprite(other.sprite), frameY(other.frameY), frameSize(other.frameSize), period(other.period) {
 
 }
 
@@ -15,7 +15,7 @@ void Animation::draw(sf::RenderTarget &target, sf::RenderStates states)const {
                                           frameSize.x, frameSize.y));
         clock.restart();
     }
-    target.draw(sprite);
+    target.draw(sprite, states);
 }
 
 void Animation::loadFromFile(std::string path, sf::Vector2i frameSize) {
