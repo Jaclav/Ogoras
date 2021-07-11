@@ -4,6 +4,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
+#include "Animation.hpp"
 #include "Entity.hpp"
 #include "Message.hpp"
 #include "tools.hpp"
@@ -25,8 +26,7 @@ private:
     u_char velocity = 1;
     sf::Vector2<units> position;
 
-    sf::Texture texture;
-    sf::Sprite sprite;
+    Animation sprite;
 
     Message message;
 };
