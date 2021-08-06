@@ -54,7 +54,7 @@ void Game::load(std::string levelName) {
     player.load(path);
 
     //background
-    loadTexture(backgroundT, path + "map.png");
+    loadTexture(backgroundT, path + "background.png");
     background.setTexture(backgroundT);
     background.setScale(window->getSize().x / background.getLocalBounds().width,
                         window->getSize().y / background.getLocalBounds().height);

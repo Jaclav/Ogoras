@@ -6,13 +6,13 @@ void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 }
 
 void Player::load(std::string path) {
-    setPosition(readIniInt(path + "config.ini", "Player", "x", 0),
-                readIniInt(path + "config.ini", "Player", "y", 0));
-    setSide((Side)readIniString(path + "config.ini", "Player", "s", "D")[0]);
+    setPosition(readIniInt(path + "Player.ini", "Player", "x", 0),
+                readIniInt(path + "Player.ini", "Player", "y", 0));
+    setSide((Side)readIniString(path + "Player.ini", "Player", "s", "D")[0]);
 
-    sprite.loadFromFile(readIniString(path + "config.ini", "Player", "src", "data/characters/player.png"), sf::Vector2i(PIXELS_PER_UNIT, PIXELS_PER_UNIT));
+    sprite.loadFromFile(readIniString(path + "Player.ini", "Player", "src", "data/characters/player.png"), sf::Vector2i(PIXELS_PER_UNIT, PIXELS_PER_UNIT));
     setSide(side);
-    sprite.setPeriod(sf::milliseconds(readIniInt(readIniString(path + "config.ini", "Player", "src", "data/characters/player.png") + ".ini", "", "period", 0)));
+    sprite.setPeriod(sf::milliseconds(readIniInt(readIniString(path + "Player.ini", "Player", "src", "data/characters/player.png") + ".ini", "", "period", 0)));
 }
 
 void Player::move(Side side) {

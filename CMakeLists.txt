@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(Ogoras VERSION 1.0 DESCRIPTION Alpha)
+project(Ogoras VERSION 2.0 DESCRIPTION Alpha)
 
 configure_file(include/version.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/include/version.hpp)
 
