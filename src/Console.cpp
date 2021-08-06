@@ -5,6 +5,9 @@
 Console::Settings Console::settings = {};
 
 bool Console::activated = false;
+bool Console::interpretScript = true;
+int Console::numberOfThreads = 0;
+
 Game *Console::game = nullptr;
 Map *Console::map = nullptr;
 Player *Console::player = nullptr;
@@ -134,14 +137,22 @@ void Console::interpret(std::string command) {
         return;
     }
     else if(cmd == "load") {
+        interpretScript = false;
+        sf::sleep(sf::milliseconds(10));
+        while(numberOfThreads != 0) { //wait until all threads are terminated
+            pushMessage("Waiting until all threads are terminated.");
+        }
+        interpretScript = true;
+
+        pushMessage("Loading " + parameterStr[0] + " level");
         game->load(parameterStr[0]);
-        pushMessage("Level loaded");
     }
     else if(cmd == "start") {
         std::thread(&script, "data/levels/" + game->getLevelName() + "/" + parameterStr[0] + ".scr").detach();
     }
     else if(cmd == "wait") {
-        sf::sleep(sf::milliseconds(parameterInt[0]));
+        sf::Clock clock;
+        while(clock.getElapsedTime() < sf::milliseconds(parameterInt[0]) && interpretScript) {} // Cannot be done with sf::sleep because of interpretScript
     }
     //player
     else if(cmd == "noclip") {
@@ -186,13 +197,17 @@ void Console::interpret(std::string command) {
 }
 
 void Console::script(std::string path) {
+    numberOfThreads++;
+
     std::ifstream file(path);
     if(!file.good()) {
-        pushMessage("Bad file!");
+        pushMessage("Cannot load " + path);
         return;
     }
     std::string line;
-    while(std::getline(file, line)) {
+    while(std::getline(file, line) && interpretScript) {
         interpret(line);
     }
+
+    numberOfThreads--;
 }

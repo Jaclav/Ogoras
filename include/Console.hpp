@@ -38,7 +38,9 @@ public:
     static void script(std::string path);
 
 private:
-    static bool activated;
+    static bool activated, interpretScript;
+    static int numberOfThreads;
+
     static Game *game;
     static Map *map;
     static Player *player;
