@@ -55,3 +55,19 @@ void Npc::touched() {
 sf::Vector2<units> Npc::getPosition() {
     return position;
 }
+
+void Npc::move(units x, units y) {
+    position.x += x;
+    position.y += y;
+
+    if(x > 0)
+        sprite.setTextureRect(setIntRect(Entity::Right));
+    else if(x < 0)
+        sprite.setTextureRect(setIntRect(Entity::Left));
+    else if(y > 0)
+        sprite.setTextureRect(setIntRect(Entity::Down));
+    else if(y < 0)
+        sprite.setTextureRect(setIntRect(Entity::Up));
+
+    sprite.setPosition(position.x * PIXELS_PER_UNIT, position.y * PIXELS_PER_UNIT);
+}

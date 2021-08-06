@@ -22,7 +22,7 @@ typedef unsigned int uint;
 
 static const u_char PIXELS_PER_UNIT = 128;
 
-typedef unsigned int units;
+typedef int units;
 typedef unsigned char Block;
 const Block Air = 0;
 

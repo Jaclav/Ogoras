@@ -77,19 +77,19 @@ src			| ścieżka do animacji (zobacz uwaga)
 
 ## Uwaga
 Animacja ma być w innym ułożeniu niż grafika npc, w pierwszej kolumnie mają być kolejne klatki animacji dla patrzenia w górę, w drugiej dla patrzenia do dołu, w trzeciej dla patrzenia w prawo, w czwartej dla patrzenia w prawo.\
-Musi również istnieć plik *nazwa_pliku_z_animacją*.png.ini. W nim znajduje się informacja o okresie trwania jednej klatki.
+Musi również istnieć plik *nazwa_pliku_z_animacją*.png.ini. W nim znajduje się informacja o okresie trwania jednej klatki w milisekundach.
 
 ### Przykład
 []\
-period=*tu okres trwania jednej klatki*
+**period**=*tu okres trwania jednej klatki*
 
 # Komendy
 Można je wprowadzić w konsoli (uruchamia się ją ~) lub w pliku *.scr.\
 Działają dopiero po załadowaniu **data/levels/lvl0**
 
-| Komenda|Działanie|
-|:--- | :---|
-|clear 			| wyczyść konsolę
+Komenda			| Działanie
+:--- | :---
+clear 			| wyczyść konsolę
 load X 			| załaduj poziom *X* z katalogu **data/levels/**
 start X			| uruchom interpretowanie pliku X.scr, będzie się to działo w innym wątku
 wait X 			| czekaj *X* milisekund
@@ -98,6 +98,7 @@ tp X Y			| teleportuj gracza do *X* *Y*
 position		| wypisuje obecną pozycję gracza
 say T M			| gracz powie *M* przez *T* milisekund
 map_block X Y B	| ustaw blok o numerze *B* na pozycji *X* *Y*
+npc_move N X Y	| przesuń npc o numerze *N* o *X* i o *Y*
 npc_say	N T M	| npc o numerze *N* powie *M* przez *T* milisekund
 npc_touch N		| zasymuluj dotknięcie npc o numerze *N*
 

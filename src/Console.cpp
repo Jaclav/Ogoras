@@ -182,6 +182,9 @@ void Console::interpret(std::string command) {
         map->setBlock(parameterInt[0], parameterInt[1], parameterInt[2]);
     }
     //npc
+    else if(cmd == "npc_move") {
+        map->getNpc(parameterInt[0])->move(parameterInt[1], parameterInt[2]);
+    }
     else if(cmd == "npc_say") {
         if(findNthElement(command, ' ', 3) != std::string::npos)
             map->getNpc(parameterInt[0])->say(sf::milliseconds(parameterInt[1]), command.substr(findNthElement(command, ' ', 3) + 1));

@@ -81,7 +81,7 @@ void Map::load(std::string path) {
 }
 
 bool Map::shouldMove(sf::Vector2<units> position) {
-    if(position.y >= map.size() || position.x >= map[0].size()) {
+    if((unsigned)position.y >= map.size() || (unsigned)position.x >= map[0].size()) {
         Console::pushMessage("Reference to nonexisting map's memory!");
         return false;
     }
@@ -115,7 +115,7 @@ bool Map::shouldMove(sf::Vector2<units> position) {
 }
 
 void Map::setBlock(units x, units y, Block block) {
-    if(x < map[0].size() && y < map.size()) {
+    if((unsigned)x < map[0].size() && (unsigned)y < map.size()) {
         if(block > blocksProperties.size()) {
             blocksProperties.resize(block + 1);
         }

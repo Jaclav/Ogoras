@@ -25,6 +25,7 @@ public:
     void touched();
 
     sf::Vector2<units> getPosition();
+    void move(units x, units y);
 
 private:
     std::string name;
