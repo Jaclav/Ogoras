@@ -17,7 +17,7 @@ Wszystkie grafiki muszą być w formacie .png
 # Bloki
 Każdy blok ma 128 pixeli na 128 pixeli.\
 Plik **blocks.ini** informuje o grafice dla danego bloka, o jej zmianie oraz o zachowaniu przy interakcji z graczem.\
-Plik **map.lvl** informuje o położeniu każdego bloku. Każda linia to jeden rząd bloków. Znakiem końca linii jest 0xff.
+Plik **map.lvl** informuje o położeniu każdego bloku. Każda linia to jeden rząd bloków. Znakiem końca linii jest 0xff. Jest to blik binarny, do jego edycji niezbędny jest specjalny edytor.
 
 # Skład pliku blocks.ini
 blocks.ini	| Objaśnienie

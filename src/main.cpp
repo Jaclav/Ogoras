@@ -11,6 +11,9 @@ sf::Font font;
 int main() {
     srand(time(NULL));
     sf::RenderWindow window(sf::VideoMode::getDesktopMode(), L"Ogóras");
+#ifdef _WIN32
+    ShowWindow(window.getSystemHandle(), SW_MAXIMIZE);
+#endif //_WIN32
     window.setFramerateLimit(60);
 
     sf::Image icon;
