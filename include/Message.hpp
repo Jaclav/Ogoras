@@ -19,6 +19,9 @@ public:
     void setPosition(sf::Vector2<units> position);// must be call after setString
     void setString(std::string string);
     void setTime(sf::Time time);
+
+    std::string getString();
+
     void trigger();
 
 private:

@@ -41,6 +41,10 @@ void Message::setTime(sf::Time time) {
     this->time = time;
 }
 
+std::string Message::getString(){
+    return text.getString().toAnsiString();
+}
+
 void Message::trigger() {
     activated = true;
     clock.restart();

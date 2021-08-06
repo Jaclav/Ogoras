@@ -28,7 +28,8 @@ Npc::Npc(int number, std::string path) : description("", font, 16) {
     description.setString(name);
 
     //set message
-    message.setString(readIniString(path, sectionName, "message", "Hey!"));
+    message.setString(readIniString(path, sectionName, "message", ""));
+    message.setTime(sf::milliseconds(readIniInt(path, sectionName, "messageTime", 0)));
 }
 
 void Npc::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -47,7 +48,8 @@ void Npc::say(sf::Time time, std::string string) {
 
 void Npc::touched() {
     message.setPosition(position);
-    message.trigger();
+    if(message.getString() != "")
+        message.trigger();
 }
 
 sf::Vector2<units> Npc::getPosition() {

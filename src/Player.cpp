@@ -12,7 +12,7 @@ void Player::load(std::string path) {
 
     sprite.loadFromFile(readIniString(path + "config.ini", "Player", "src", "data/characters/player.png"), sf::Vector2i(PIXELS_PER_UNIT, PIXELS_PER_UNIT));
     setSide(side);
-    sprite.setPeriod(sf::milliseconds(500));
+    sprite.setPeriod(sf::milliseconds(readIniInt(path + "config.ini", "Player", "period", 0)));
 }
 
 void Player::move(Side side) {
