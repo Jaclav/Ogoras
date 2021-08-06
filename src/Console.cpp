@@ -157,7 +157,7 @@ void Console::interpret(std::string command) {
     //player
     else if(cmd == "noclip") {
         settings.noclip = parameterInt[0];
-        pushMessage("Noclip setted as " + std::to_string(parameterInt[1]));
+        pushMessage("Noclip setted as " + std::to_string(parameterInt[0]));
     }
     else if(cmd == "tp") {
         if(map->shouldMove(sf::Vector2<units>(parameterInt[0], parameterInt[1]))) {
