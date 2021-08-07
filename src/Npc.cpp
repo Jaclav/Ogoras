@@ -1,6 +1,6 @@
 #include "Npc.hpp"
 
-Npc::Npc(const Npc &other) : name(other.name), position(other.position),
+Npc::Npc(const Npc &other) : name(other.name), command(other.command), position(other.position),
     texture(other.texture), sprite(other.sprite), side(other.side), description(other.description), message(other.message) {
     sprite.setTexture(texture);
 }
@@ -8,6 +8,9 @@ Npc::Npc(const Npc &other) : name(other.name), position(other.position),
 Npc::Npc(int number, std::string path) : description("", font, 16) {
     name = readIniString(path, "Npc" + std::to_string(number), "name", "NULL");
     std::string sectionName = "Npc" + std::to_string(number);
+
+    //load command
+    command = readIniString(path, "Npc" + std::to_string(number), "command", "NULL");
 
     //load position
     position.x = readIniInt(path, sectionName, "x", 0);
@@ -50,6 +53,9 @@ void Npc::touched() {
     message.setPosition(position);
     if(message.getString() != "")
         message.trigger();
+
+    if(command != "NULL")
+        Console::interpret(command);
 }
 
 sf::Vector2<units> Npc::getPosition() {

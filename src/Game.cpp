@@ -11,31 +11,23 @@ Game::Game(sf::RenderWindow &window) {
         while(window.pollEvent(event)) {
             defaultEvents(window, event);
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-                player.move(Player::Up);
-                if(!map.shouldMove(player.getPosition())) {
-                    player.move(Player::Down);//antagonist move
-                    player.setSide(Player::Side::Up);//set side after antagonist move
+                if(map.shouldMove(sf::Vector2i(player.getPosition().x, player.getPosition().y - 1))) {
+                    player.move(Player::Up);
                 }
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-                player.move(Player::Down);
-                if(!map.shouldMove(player.getPosition())) {
-                    player.move(Player::Up);//antagonist move
-                    player.setSide(Player::Side::Down);//set side after antagonist move
+                if(map.shouldMove(sf::Vector2i(player.getPosition().x, player.getPosition().y + 1))) {
+                    player.move(Player::Down);
                 }
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-                player.move(Player::Right);
-                if(!map.shouldMove(player.getPosition())) {
-                    player.move(Player::Left);//antagonist move
-                    player.setSide(Player::Side::Right);//set side after antagonist move
+                if(map.shouldMove(sf::Vector2i(player.getPosition().x + 1, player.getPosition().y))) {
+                    player.move(Player::Right);
                 }
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-                player.move(Player::Left);
-                if(!map.shouldMove(player.getPosition())) {
-                    player.move(Player::Right);//antagonist move
-                    player.setSide(Player::Side::Left);//set side after antagonist move
+                if(map.shouldMove(sf::Vector2i(player.getPosition().x - 1, player.getPosition().y))) {
+                    player.move(Player::Left);
                 }
             }
         }
@@ -62,6 +54,6 @@ void Game::load(std::string levelName) {
     Console::interpret("start main");
 }
 
-std::string Game::getLevelName(){
+std::string Game::getLevelName() {
     return levelName;
 }

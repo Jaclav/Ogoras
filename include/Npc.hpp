@@ -28,7 +28,7 @@ public:
     void move(units x, units y);
 
 private:
-    std::string name;
+    std::string name, command;
     sf::Vector2<units> position;
 
     sf::Texture texture;

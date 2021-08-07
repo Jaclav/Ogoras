@@ -46,6 +46,7 @@ x			| pozycja x
 y			| pozycja y
 s			| kierunek patrzenia, może być U - do góry, D - do dołu, R - w prawo, L - w lewo
 src 		| ścieżka do grafiki, ułożenie duszków to patrzący do góry, do dołu, w prawo i w lewo, domyślnie Npc*X*
+command		| komenda wykonywana po dotknięciu
 message		| wiadomość wyświtlana po dotknięciu, domyślnie nic się nie pokaże
 messageTime | czas wyświetlania *message*
 
@@ -56,6 +57,7 @@ messageTime | czas wyświetlania *message*
 **x**=4\
 **y**=5\
 **src**=data/characters/darek.png\
+**command**=tp 8 0\
 **message**=Czesc?\
 **messageTime**=500
 
