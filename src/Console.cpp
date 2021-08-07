@@ -139,8 +139,9 @@ void Console::interpret(std::string command) {
     else if(cmd == "load") {
         interpretScript = false;
         sf::sleep(sf::milliseconds(10));
-        while(numberOfThreads != 0) { //wait until all threads are terminated
+        if(numberOfThreads != 0) { //wait until all threads are terminated
             pushMessage("Waiting until all threads are terminated.");
+            sf::sleep(sf::milliseconds(100));
         }
         interpretScript = true;
 

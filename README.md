@@ -47,8 +47,6 @@ y			| pozycja y
 s			| kierunek patrzenia, może być U - do góry, D - do dołu, R - w prawo, L - w lewo
 src 		| ścieżka do grafiki, ułożenie duszków to patrzący do góry, do dołu, w prawo i w lewo, domyślnie Npc*X*
 command		| komenda wykonywana po dotknięciu
-message		| wiadomość wyświtlana po dotknięciu, domyślnie nic się nie pokaże
-messageTime | czas wyświetlania *message*
 
 ## Przykład
 [**Npc**2]\
@@ -57,9 +55,7 @@ messageTime | czas wyświetlania *message*
 **x**=4\
 **y**=5\
 **src**=data/characters/darek.png\
-**command**=tp 8 0\
-**message**=Czesc?\
-**messageTime**=500
+**command**=npc_say 2 500 Czesc!
 
 # Skład pliku Player.ini
 Player.ini	| Objaśnienie
