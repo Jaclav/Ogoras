@@ -139,11 +139,12 @@ void Console::interpret(std::string command) {
     else if(cmd == "load") {
         interpretScript = false;
         sf::sleep(sf::milliseconds(10));
-        if(numberOfThreads != 0) { //wait until all threads are terminated
+        for(int i = 0; numberOfThreads != 0 && i < 3; i++) {
             pushMessage("Waiting until all threads are terminated.");
             sf::sleep(sf::milliseconds(100));
         }
         interpretScript = true;
+        numberOfThreads = 0;
 
         pushMessage("Loading " + parameterStr[0] + " level");
         game->load(parameterStr[0]);
