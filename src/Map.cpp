@@ -92,10 +92,12 @@ bool Map::shouldMove(sf::Vector2<units> position) {
     for(uint i = 0; i < npc.size(); i++) {
         if(npc[i].getPosition() == position) {
             npc[i].touched();
-            if(Console::getSettings().noclip == 0)
-                return false;
-            else
-                return true;
+            if(npc[i].getPosition() == position) { //something could change after being touched
+                if(Console::getSettings().noclip == 0)
+                    return false;
+                else
+                    return true;
+            }
         }
     }
 
