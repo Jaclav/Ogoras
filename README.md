@@ -90,6 +90,8 @@ Komenda			| Działanie
 clear 			| wyczyść konsolę
 load X 			| załaduj poziom *X* z katalogu **data/levels/**
 start X			| uruchom interpretowanie pliku X.scr, będzie się to działo w innym wątku
+stop			| usuń wszystkie wątki
+threads			| podaj liczbę obecnie wykonywanych wątków
 wait X 			| czekaj *X* milisekund
 noclip 1 		| wyłącz kolizję
 tp X Y			| teleportuj gracza do *X* *Y*

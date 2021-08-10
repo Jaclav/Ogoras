@@ -29,7 +29,7 @@ Console::Console(sf::Vector2u windowSize) {
     previousText.setPosition(10, background.getPosition().y);
     previousText.setFillColor(sf::Color::Black);
 
-    typedText.setPosition(10, windowSize.y - typedText.getLocalBounds().height * 2.1);
+    typedText.setPosition(10, windowSize.y - typedText.getLocalBounds().height * 2.5);
     typedText.setFillColor(sf::Color::Black);
 }
 
@@ -105,6 +105,12 @@ void Console::setHandles(Game *game, Map *map, Player *player) {
     Console::player = player;
 }
 
+void Console::removeHandles() {
+    Console::game = nullptr;
+    Console::map = nullptr;
+    Console::player = nullptr;
+}
+
 void Console::interpret(std::string command) {
     static const size_t maxParametersAmount = 3;
     pushMessage("> " + command);
@@ -137,6 +143,15 @@ void Console::interpret(std::string command) {
         return;
     }
     else if(cmd == "load") {
+        interpret("stop");
+        pushMessage("Loading " + parameterStr[0] + " level");
+        game->load(parameterStr[0]);
+    }
+    //threads
+    else if(cmd == "start") {
+        std::thread(&script, "data/levels/" + game->getLevelName() + "/" + parameterStr[0] + ".scr").detach();
+    }
+    else if(cmd == "stop") {
         interpretScript = false;
         sf::sleep(sf::milliseconds(10));
         for(int i = 0; numberOfThreads != 0 && i < 3; i++) {
@@ -145,12 +160,9 @@ void Console::interpret(std::string command) {
         }
         interpretScript = true;
         numberOfThreads = 0;
-
-        pushMessage("Loading " + parameterStr[0] + " level");
-        game->load(parameterStr[0]);
     }
-    else if(cmd == "start") {
-        std::thread(&script, "data/levels/" + game->getLevelName() + "/" + parameterStr[0] + ".scr").detach();
+    else if(cmd == "threads") {
+        pushMessage("Existing threads: " + std::to_string(numberOfThreads));
     }
     else if(cmd == "wait") {
         sf::Clock clock;

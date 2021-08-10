@@ -10,6 +10,11 @@ Game::Game(sf::RenderWindow &window) {
     while(window.isOpen()) {
         while(window.pollEvent(event)) {
             defaultEvents(window, event);
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                Console::interpret("stop");
+                Console::removeHandles();
+                return;
+            }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
                 if(map.shouldMove(sf::Vector2i(player.getPosition().x, player.getPosition().y - 1))) {
                     player.move(Player::Up);

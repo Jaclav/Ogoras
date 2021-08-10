@@ -34,6 +34,7 @@ public:
 
     static Settings getSettings();
     static void setHandles(Game *game, Map *map, Player *player);
+    static void removeHandles();
     static void interpret(std::string command);
     static void script(std::string path);
 
