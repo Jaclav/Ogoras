@@ -26,7 +26,7 @@ int main() {
 
     Menu menu(window);
     while(window.isOpen()) {
-        menu.start(window);
+        menu.start();
         if(window.isOpen())
             Game game(window);
     }

@@ -18,13 +18,11 @@ extern sf::Font font;
 class Menu {
 public:
     Menu(sf::RenderWindow &window);
-    void setDefault(sf::RenderWindow &window);
-    void start(sf::RenderWindow &window);
-    void stop(sf::RenderWindow &window);
+    void setDefault();
+    void start();
 
 private:
-    enum Returned {Back, Play};
-    Returned play(sf::RenderWindow &window);
+    sf::RenderWindow *window;
 
     sf::Event event;
 

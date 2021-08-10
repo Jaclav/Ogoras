@@ -1,6 +1,8 @@
 #include "Menu.hpp"
 
 Menu::Menu(sf::RenderWindow &window) {
+    this->window = &window;
+
     mainText.setFont(font);
     mainText.setOutlineThickness(3);
     mainText.setCharacterSize(window.getSize().x / 24);
@@ -8,7 +10,7 @@ Menu::Menu(sf::RenderWindow &window) {
     subText.setFont(font);
     subText.setOutlineThickness(2);
     subText.setCharacterSize(window.getSize().x / 35);
-    setDefault(window);
+    setDefault();
 
     //for initializing Console
     std::vector<sf::Drawable*> tmp;
@@ -20,77 +22,72 @@ Menu::Menu(sf::RenderWindow &window) {
                         window.getSize().y / background.getLocalBounds().height);
 }
 
-void Menu::setDefault(sf::RenderWindow &window) {
-    setAndAlignText(mainText, mainTextStr, window.getSize().x, 100);
+void Menu::setDefault() {
+    setAndAlignText(mainText, mainTextStr, window->getSize().x, 100);
     subText.setString(version);
     subText.setPosition(0, 0);
 }
 
-void Menu::start(sf::RenderWindow &window) {
-    Button backButton((window.getSize().x - 500) / 2, window.getSize().y / 1.2, 500, 100, "Back", [&]() {});
-    Button playButton(window.getSize().x / 8, window.getSize().y / 3, 500, 100, "Play", [&]() {});
-    Button settingsButton(window.getSize().x / 8, window.getSize().y / 3 + 125, 500, 100, "Settings", [&]() {
-        setAndAlignText(mainText, L"Settings", window.getSize().x, 100);
+void Menu::start() {
+    Button backButton((window->getSize().x - 500) / 2, window->getSize().y / 1.2, 500, 100, "Back", [&]() {});
+    Button playButton(window->getSize().x / 8, window->getSize().y / 3, 500, 100, "Play", [&]() {});
+    Button settingsButton(window->getSize().x / 8, window->getSize().y / 3 + 125, 500, 100, "Settings", [&]() {
+        setAndAlignText(mainText, L"Settings", window->getSize().x, 100);
 
         subText.setString(L"Usage:");
-        subText.setPosition(window.getSize().x / 10, 300);
+        subText.setPosition(window->getSize().x / 10, 300);
 
         std::vector<sf::Drawable*> toDraw{&background, &backButton, &mainText, &subText};
 
-        while(window.isOpen()) {
-            while(window.pollEvent(event)) {
-                defaultEvents(window, event);
+        while(window->isOpen()) {
+            while(window->pollEvent(event)) {
+                defaultEvents(*window, event);
                 if(backButton.isCovering() && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                    setDefault(window);
+                    setDefault();
                     return;
                 }
             }
-            window.clear();
-            draw(window, toDraw);
-            window.display();
+            window->clear();
+            draw(*window, toDraw);
+            window->display();
         }
     });
-    Button creditsButton(window.getSize().x / 8, window.getSize().y / 3 + 250, 237.5, 100, "Credits", [&]() {
-        setAndAlignText(mainText, L"Credits", window.getSize().x, 100);
+    Button creditsButton(window->getSize().x / 8, window->getSize().y / 3 + 250, 237.5, 100, "Credits", [&]() {
+        setAndAlignText(mainText, L"Credits", window->getSize().x, 100);
 
         subText.setString(L"Game created by: Jacław\nTextures created by: Skryty\nGraphic library: SFML created by Laurent Gomila\nFont used: DejaVuSans");
-        subText.setPosition(window.getSize().x / 10, 300);
+        subText.setPosition(window->getSize().x / 10, 300);
 
         std::vector<sf::Drawable*> toDraw{&background, &backButton, &mainText, &subText};
 
-        while(window.isOpen()) {
-            while(window.pollEvent(event)) {
-                defaultEvents(window, event);
+        while(window->isOpen()) {
+            while(window->pollEvent(event)) {
+                defaultEvents(*window, event);
                 if(backButton.isCovering() && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                    setDefault(window);
+                    setDefault();
                     return;
                 }
             }
-            window.clear();
-            draw(window, toDraw);
-            window.display();
+            window->clear();
+            draw(*window, toDraw);
+            window->display();
         }
     });
-    Button quitButton(window.getSize().x / 8 + 262.5, window.getSize().y / 3 + 250, 237.5, 100, "Quit", [&]() {
-        window.close();
+    Button quitButton(window->getSize().x / 8 + 262.5, window->getSize().y / 3 + 250, 237.5, 100, "Quit", [&]() {
+        window->close();
     });
 
     std::vector<sf::Drawable*> toDraw{&background, &playButton, &settingsButton, &creditsButton, &quitButton, &mainText, &subText};
 
-    while(window.isOpen()) {
-        while(window.pollEvent(event)) {
-            defaultEvents(window, event);
+    while(window->isOpen()) {
+        while(window->pollEvent(event)) {
+            defaultEvents(*window, event);
             if(playButton.isCovering() && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                 return;
             }
         }
-        window.clear();
-        draw(window, toDraw);
-        window.display();
+        window->clear();
+        draw(*window, toDraw);
+        window->display();
     }
-}
-
-void Menu::stop(sf::RenderWindow &window) {
-    //TODO; stop screen when pressed ESC
-    window.setPosition(window.getPosition());
 }
