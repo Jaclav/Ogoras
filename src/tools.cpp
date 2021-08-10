@@ -62,9 +62,7 @@ void draw(sf::RenderWindow &window, std::vector<sf::Drawable*>&toDraw) {
         window.draw(fpsText);
     }
 
-    //Console
-    static Console console(window.getSize());
-    window.draw(console);
+    Console::drawOn(window);
 
     return;
 }

@@ -25,6 +25,7 @@ int main() {
         exit(0);
 
     Menu menu(window);
+    static Console console(window.getSize());
     while(window.isOpen()) {
         menu.start();
         if(window.isOpen())

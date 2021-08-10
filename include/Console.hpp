@@ -18,7 +18,7 @@ class Game;
 class Map;
 class Player;
 
-class Console : public sf::Drawable {
+class Console {
 public:
     Console(sf::Vector2u windowSize);
     ~Console();
@@ -28,7 +28,7 @@ public:
     };
     static Settings settings;
 
-    void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+    static void drawOn(sf::RenderWindow &window);
     static void handleEvent(sf::Event &event);
     static void pushMessage(std::string message);
 

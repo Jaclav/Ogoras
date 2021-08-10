@@ -74,13 +74,13 @@ void Console::handleEvent(sf::Event &event) {
     }
 }
 
-void Console::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+void Console::drawOn(sf::RenderWindow &window) {
     if(!activated)
         return;
 
-    target.draw(background, states);
-    target.draw(previousText, states);
-    target.draw(typedText, states);
+    window.draw(background);
+    window.draw(previousText);
+    window.draw(typedText);
 }
 
 void Console::pushMessage(std::string message) {
