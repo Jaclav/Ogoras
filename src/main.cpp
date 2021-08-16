@@ -25,11 +25,12 @@ int main() {
         exit(0);
 
     Menu menu(window);
-    static Console console(window.getSize());
+    Game game(window);
+    static Console console(window.getSize(), game);
     while(window.isOpen()) {
         menu.start();
         if(window.isOpen())
-            Game game(window);
+            game.play();
     }
     return 0;
 }

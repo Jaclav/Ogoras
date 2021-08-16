@@ -14,16 +14,19 @@ class Game {
 public:
     Game(sf::RenderWindow &window);
     void load(std::string levelName);
+    void play();
 
     std::string getLevelName();
+    Map* getMap();
+    Player* getPlayer();
 
 private:
+    sf::RenderWindow *window;
     sf::Event event;
     std::string levelName;
 
     Map map;
     Player player;
-    const sf::RenderWindow *window;
 
     sf::Texture backgroundT;
     sf::Sprite background;

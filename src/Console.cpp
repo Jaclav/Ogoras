@@ -2,26 +2,25 @@
 #include "Game.hpp"
 #include "Map.hpp"
 
-Console::Settings Console::settings = {};
+Console::Variables Console::variables = {};
 
 bool Console::activated = false;
 bool Console::interpretScript = true;
 int Console::numberOfThreads = 0;
 
 Game *Console::game = nullptr;
-Map *Console::map = nullptr;
-Player *Console::player = nullptr;
 
 sf::RectangleShape Console::background;
 
+sf::Text Console::previousText("", font, 15);
 std::wstring Console::typedString = L"";
-sf::Text Console::typedText("> ", font);
-
-sf::Text Console::previousText("", font, 20);
+sf::Text Console::typedText("> ", font, 20);
 
 std::ofstream Console::file("console.log", std::ios::out);
 
-Console::Console(sf::Vector2u windowSize) {
+Console::Console(sf::Vector2u windowSize, Game &game) {
+    this->game = &game;
+
     background.setSize(sf::Vector2f(windowSize.x / 2.5, windowSize.y / 4));
     background.setPosition(0, windowSize.y - background.getLocalBounds().height);
     background.setFillColor(sf::Color(128, 128, 128, 150));//button's color
@@ -87,31 +86,20 @@ void Console::pushMessage(std::string message) {
     file << message << std::endl;
 
     previousText.setString(previousText.getString() + message + "\n");
-    std::string tmp = previousText.getString().toAnsiString();
-
-    if(std::count(tmp.begin(), tmp.end(), '\n') > 9) {
-        tmp = tmp.substr(tmp.find("\n") + 1, tmp.size() - tmp.find("\n"));
-        previousText.setString(tmp);
+    if(previousText.getLocalBounds().height > background.getLocalBounds().height) {
+        previousText.setString(previousText.getString().substring(previousText.getString().find("\n") + 1,
+                               previousText.getString().getSize() - previousText.getString().find("\n")));
     }
 }
 
-Console::Settings Console::getSettings() {
-    return settings;
-}
-
-void Console::setHandles(Game *game, Map *map, Player *player) {
-    Console::game = game;
-    Console::map = map;
-    Console::player = player;
-}
-
-void Console::removeHandles() {
-    Console::game = nullptr;
-    Console::map = nullptr;
-    Console::player = nullptr;
+Console::Variables Console::getVariable() {
+    return variables;
 }
 
 void Console::interpret(std::string command) {
+    if(command == "")
+        return;
+
     static const size_t maxParametersAmount = 3;
     pushMessage("> " + command);
 
@@ -138,20 +126,23 @@ void Console::interpret(std::string command) {
     if(cmd == "clear") {
         previousText.setString("");
     }
-    else if(game == nullptr || map == nullptr || player == nullptr) {
-        pushMessage("Some handles are undefined!");
+    if(game == nullptr) {
+        pushMessage("Game is undefined!");
         return;
     }
     else if(cmd == "load") {
         interpret("stop");
+        variables.playing = true;
         pushMessage("Loading " + parameterStr[0] + " level");
         game->load(parameterStr[0]);
+        interpret("script main");
     }
     //threads
-    else if(cmd == "start") {
-        std::thread(&script, "data/levels/" + game->getLevelName() + "/" + parameterStr[0] + ".scr").detach();
+    else if(cmd == "script") {
+        std::thread(&script, parameterStr[0]).detach();
     }
     else if(cmd == "stop") {
+        variables.playing = false;
         interpretScript = false;
         sf::sleep(sf::milliseconds(10));
         for(int i = 0; numberOfThreads != 0 && i < 3; i++) {
@@ -170,55 +161,67 @@ void Console::interpret(std::string command) {
     }
     //player
     else if(cmd == "noclip") {
-        settings.noclip = parameterInt[0];
+        variables.noclip = parameterInt[0];
         pushMessage("Noclip setted as " + std::to_string(parameterInt[0]));
     }
     else if(cmd == "tp") {
-        if(map->shouldMove(sf::Vector2<units>(parameterInt[0], parameterInt[1]))) {
-            player->setPosition(parameterInt[0], parameterInt[1]);
-            pushMessage("Player teleported at " + std::to_string(player->getPosition().x) + " " + std::to_string(player->getPosition().y));
+        if(game->getMap()->shouldMove(sf::Vector2<units>(parameterInt[0], parameterInt[1]))) {
+            game->getPlayer()->setPosition(parameterInt[0], parameterInt[1]);
+            pushMessage("Player teleported at " + std::to_string(game->getPlayer()->getPosition().x) + " " + std::to_string(game->getPlayer()->getPosition().y));
         }
         else {
             pushMessage("Cannnot teleport there!");
         }
     }
     else if(cmd == "position") {
-        pushMessage("Player position is " + std::to_string(player->getPosition().x) + " " + std::to_string(player->getPosition().y));
+        pushMessage("Player position is " + std::to_string(game->getPlayer()->getPosition().x) + " " + std::to_string(game->getPlayer()->getPosition().y));
     }
     else if(cmd == "say") {
         if(findNthElement(command, ' ', 2) != std::string::npos)
-            player->say(sf::milliseconds(parameterInt[0]), command.substr(findNthElement(command, ' ', 2) + 1));
+            game->getPlayer()->say(sf::milliseconds(parameterInt[0]), command.substr(findNthElement(command, ' ', 2) + 1));
         else
             pushMessage("Wrong say parameters!");
     }
     //map
     else if(cmd == "map_block") {
-        map->setBlock(parameterInt[0], parameterInt[1], parameterInt[2]);
+        if(variables.playing)
+            game->getMap()->setBlock(parameterInt[0], parameterInt[1], parameterInt[2]);
+        else
+            pushMessage("Map can be changed only during game!");
     }
     //npc
-    else if(cmd == "npc_move") {
-        map->getNpc(parameterInt[0])->move(parameterInt[1], parameterInt[2]);
-    }
-    else if(cmd == "npc_say") {
-        if(findNthElement(command, ' ', 3) != std::string::npos)
-            map->getNpc(parameterInt[0])->say(sf::milliseconds(parameterInt[1]), command.substr(findNthElement(command, ' ', 3) + 1));
-        else
-            pushMessage("Wrong npc_say parameters!");
-    }
-    else if(cmd == "npc_touch") {
-        map->getNpc(parameterInt[0])->touched();
+    else if(cmd.find("npc_") != std::string::npos) {
+        if(game->getMap()->getNpc(parameterInt[0]) != nullptr) {
+            if(cmd == "npc_move") {
+                game->getMap()->getNpc(parameterInt[0])->move(parameterInt[1], parameterInt[2]);
+            }
+            else if(cmd == "npc_say") {
+                if(findNthElement(command, ' ', 3) != std::string::npos) {
+                    game->getMap()->getNpc(parameterInt[0])->say(sf::milliseconds(parameterInt[1]), command.substr(findNthElement(command, ' ', 3) + 1));
+                }
+                else
+                    pushMessage("Wrong npc_say parameters!");
+            }
+            else if(cmd == "npc_touch") {
+                game->getMap()->getNpc(parameterInt[0])->touched();
+            }
+        }
+        else {
+            pushMessage("Npc" + parameterStr[0] + " doesn't exist!");
+        }
     }
     else {
         pushMessage("Command not found!");
     }
 }
 
-void Console::script(std::string path) {
+void Console::script(std::string name) {
     numberOfThreads++;
 
-    std::ifstream file(path);
+    name = "data/levels/" + game->getLevelName() + "/" + name + ".scr";
+    std::ifstream file(name);
     if(!file.good()) {
-        pushMessage("Cannot load " + path);
+        pushMessage("Cannot load " + name);
         return;
     }
     std::string line;

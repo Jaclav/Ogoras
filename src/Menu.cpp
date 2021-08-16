@@ -34,15 +34,20 @@ void Menu::start() {
     Button settingsButton(window->getSize().x / 8, window->getSize().y / 3 + 125, 500, 100, "Settings", [&]() {
         setAndAlignText(mainText, L"Settings", window->getSize().x, 100);
 
-        subText.setString(L"Usage:");
+        subText.setString(L"Usage:\n\t` - open console\n\tArrows - move player\nFor more information read README.md");
         subText.setPosition(window->getSize().x / 10, 300);
 
         std::vector<sf::Drawable*> toDraw{&background, &backButton, &mainText, &subText};
 
         while(window->isOpen()) {
+            if(Console::getVariable().playing) {
+                setDefault();
+                return;
+            }
+
             while(window->pollEvent(event)) {
                 defaultEvents(*window, event);
-                if(backButton.isCovering() && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                if((backButton.isCovering() && sf::Mouse::isButtonPressed(sf::Mouse::Left))  || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                     setDefault();
                     return;
                 }
@@ -61,9 +66,14 @@ void Menu::start() {
         std::vector<sf::Drawable*> toDraw{&background, &backButton, &mainText, &subText};
 
         while(window->isOpen()) {
+            if(Console::getVariable().playing) {
+                setDefault();
+                return;
+            }
+
             while(window->pollEvent(event)) {
                 defaultEvents(*window, event);
-                if(backButton.isCovering() && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                if((backButton.isCovering() && sf::Mouse::isButtonPressed(sf::Mouse::Left)) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                     setDefault();
                     return;
                 }
@@ -80,9 +90,13 @@ void Menu::start() {
     std::vector<sf::Drawable*> toDraw{&background, &playButton, &settingsButton, &creditsButton, &quitButton, &mainText, &subText};
 
     while(window->isOpen()) {
+        if(Console::getVariable().playing)
+            return;
+
         while(window->pollEvent(event)) {
             defaultEvents(*window, event);
             if(playButton.isCovering() && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                Console::interpret("load lvl0");
                 return;
             }
         }

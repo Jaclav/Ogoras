@@ -93,7 +93,7 @@ bool Map::shouldMove(sf::Vector2<units> position) {
         if(npc[i].getPosition() == position) {
             npc[i].touched();
             if(npc[i].getPosition() == position) { //something could change after being touched
-                if(Console::getSettings().noclip == 0)
+                if(Console::getVariable().noclip == 0)
                     return false;
                 else
                     return true;
@@ -101,7 +101,7 @@ bool Map::shouldMove(sf::Vector2<units> position) {
         }
     }
 
-    if(Console::getSettings().noclip) {
+    if(Console::getVariable().noclip) {
         return true;
     }
 
@@ -131,5 +131,5 @@ Npc* Map::getNpc(size_t number) {
     if(number < npc.size()) {
         return &npc[number];
     }
-    return &npc[0];
+    return nullptr;
 }

@@ -14,37 +14,36 @@
 #include <SFML/Window/Event.hpp>
 
 extern sf::Font font;
+
 class Game;
 class Map;
 class Player;
 
 class Console {
 public:
-    Console(sf::Vector2u windowSize);
+    Console(sf::Vector2u windowSize, Game &game);
     ~Console();
 
-    struct Settings {
+    struct Variables {
         bool noclip = false;
+        bool playing = false;
     };
-    static Settings settings;
+    static Variables variables;
 
     static void drawOn(sf::RenderWindow &window);
     static void handleEvent(sf::Event &event);
     static void pushMessage(std::string message);
 
-    static Settings getSettings();
-    static void setHandles(Game *game, Map *map, Player *player);
-    static void removeHandles();
+    static Variables getVariable();
+
     static void interpret(std::string command);
-    static void script(std::string path);
+    static void script(std::string name);
 
 private:
     static bool activated, interpretScript;
     static int numberOfThreads;
 
     static Game *game;
-    static Map *map;
-    static Player *player;
 
     static sf::RectangleShape background;
 
