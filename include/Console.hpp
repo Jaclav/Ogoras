@@ -2,6 +2,7 @@
 #define CONSOLE_HPP
 
 #include <fstream>
+#include <mutex>
 #include <string>
 #include <thread>
 #include <vector>
@@ -52,6 +53,8 @@ private:
     static sf::Text typedText;
 
     static std::ofstream file;
+
+    static std::mutex fontMutex;
 };
 
 #endif //CONSOLE_HPP

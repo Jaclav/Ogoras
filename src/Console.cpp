@@ -18,7 +18,10 @@ sf::Text Console::typedText("> ", font, 20);
 
 std::ofstream Console::file("console.log", std::ios::out);
 
+std::mutex Console::fontMutex = {};
+
 Console::Console(sf::Vector2u windowSize, Game &game) {
+    pushMessage("Creating console.");
     this->game = &game;
 
     background.setSize(sf::Vector2f(windowSize.x / 2.5, windowSize.y / 4));
@@ -33,6 +36,10 @@ Console::Console(sf::Vector2u windowSize, Game &game) {
 }
 
 Console::~Console() {
+    pushMessage("Destructing console.");
+
+    interpret("stop");
+
     file.close();
 }
 
@@ -85,6 +92,8 @@ void Console::drawOn(sf::RenderWindow &window) {
 void Console::pushMessage(std::string message) {
     file << message << std::endl;
 
+    std::lock_guard<std::mutex> lock(fontMutex);
+
     previousText.setString(previousText.getString() + message + "\n");
     if(previousText.getLocalBounds().height > background.getLocalBounds().height) {
         previousText.setString(previousText.getString().substring(previousText.getString().find("\n") + 1,
@@ -126,7 +135,7 @@ void Console::interpret(std::string command) {
     if(cmd == "clear") {
         previousText.setString("");
     }
-    if(game == nullptr) {
+    else if(game == nullptr) {
         pushMessage("Game is undefined!");
         return;
     }
@@ -144,11 +153,13 @@ void Console::interpret(std::string command) {
     else if(cmd == "stop") {
         variables.playing = false;
         interpretScript = false;
-        sf::sleep(sf::milliseconds(10));
-        for(int i = 0; numberOfThreads != 0 && i < 3; i++) {
+
+        sf::sleep(sf::milliseconds(1));
+        for(u_char i = 0; i < 4 && numberOfThreads; i++) {
             pushMessage("Waiting until all threads are terminated.");
-            sf::sleep(sf::milliseconds(100));
+            sf::sleep(sf::milliseconds(1));
         }
+
         interpretScript = true;
         numberOfThreads = 0;
     }
@@ -216,18 +227,19 @@ void Console::interpret(std::string command) {
 }
 
 void Console::script(std::string name) {
-    numberOfThreads++;
-
     name = "data/levels/" + game->getLevelName() + "/" + name + ".scr";
     std::ifstream file(name);
     if(!file.good()) {
         pushMessage("Cannot load " + name);
         return;
     }
+
+    numberOfThreads++;
     std::string line;
     while(std::getline(file, line) && interpretScript) {
         interpret(line);
     }
+    file.close();
 
     numberOfThreads--;
 }
